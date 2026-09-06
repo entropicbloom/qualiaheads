@@ -121,6 +121,14 @@
       100% { translate: -5px 6px; }
     }
 
+    /* the pupil: now and then it dilates (or, rarely, tightens) for a moment */
+    .eye .pupil { transform-box: fill-box; transform-origin: center; }
+    .eye .pupil.dilate { animation: dilate var(--dil-dur, 1800ms) ease-in-out both; }
+    @keyframes dilate {
+      0%, 100% { transform: scale(1); }
+      40%, 62% { transform: scale(var(--dil-scale, 1.16)); }
+    }
+
     /* ---------- text ---------- */
     .stack {
       position: relative; z-index: 2;
@@ -183,7 +191,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .wash, .eye .iris { animation: none !important; }
+      .wash, .eye .iris, .eye .pupil { animation: none !important; }
       .eye, .eye .lid, .rise { transition: none !important; }
       .eye.blink .lid { animation: none !important; }
     }
@@ -252,14 +260,39 @@
           '<path d="M10 100 C 40 30, 160 30, 190 100 C 160 170, 40 170, 10 100 Z" fill="url(#head)" filter="url(#riso)"/>' +
           '<g clip-path="url(#almond)">' +
             '<g class="iris">' +
-              '<circle cx="100" cy="100" r="46" fill="url(#orb)"/>' +
-              '<circle cx="100" cy="100" r="46" fill="url(#halo)"/>' +
+              '<g class="pupil">' +
+                '<circle cx="100" cy="100" r="46" fill="url(#orb)"/>' +
+                '<circle cx="100" cy="100" r="46" fill="url(#halo)"/>' +
+              '</g>' +
             '</g>' +
           '</g>' +
         '</g>';
 
+      // Each eye gets its own copy of the iris gradient, started at a random
+      // point in the cycle and with its own cycle length, so the colours of
+      // the eyes drift out of phase instead of changing in lockstep.
+      function irisGradient(id) {
+        var dur = Math.round(120 + Math.random() * 80);      // 120 to 200 s
+        var begin = -Math.round(Math.random() * dur);        // random phase
+        function stop(offset, colors) {
+          return '<stop offset="' + offset + '" stop-color="' + colors[0] + '">' +
+            '<animate attributeName="stop-color" values="' + colors.join(';') + '" dur="' + dur + 's" begin="' + begin + 's" repeatCount="indefinite"/></stop>';
+        }
+        return '<defs><linearGradient id="' + id + '" x1="0" y1="0" x2="0" y2="1">' +
+          // every neighbouring pair here blends through an in-palette tone:
+          // magenta stays at the bottom and only ever trades with orange
+          stop('0',   ['#f5d67f', '#f6b27c', '#f5d67f', '#93d4c7', '#f5d67f']) +
+          stop('.38', ['#93d4c7', '#f5d67f', '#93d4c7', '#93d4c7', '#93d4c7']) +
+          stop('.72', ['#5fb9ab', '#93d4c7', '#5fb9ab', '#5fb9ab', '#5fb9ab']) +
+          stop('1',   ['#c9548f', '#ef8a5c', '#c9548f', '#ef8a5c', '#c9548f']) +
+          '</linearGradient></defs>';
+      }
+
       var eyes = Array.prototype.slice.call(document.querySelectorAll('.eye'));
-      eyes.forEach(function (svg) { svg.innerHTML = EYE; });
+      eyes.forEach(function (svg, i) {
+        var id = 'orb-' + i;
+        svg.innerHTML = irisGradient(id) + EYE.replace('url(#orb)', 'url(#' + id + ')');
+      });
 
       // Entrance: eyes open, text rises.
       requestAnimationFrame(function () {
@@ -267,7 +300,12 @@
       });
 
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-      if (reduce.matches) return;
+      if (reduce.matches) {
+        Array.prototype.forEach.call(document.querySelectorAll('svg'), function (s) {
+          if (s.pauseAnimations) s.pauseAnimations();
+        });
+        return;
+      }
 
       // Blink scheduler: every eye on its own irregular clock, 4 to 12 s apart,
       // occasionally a quick double blink.
@@ -295,6 +333,29 @@
       }
 
       eyes.forEach(function (eye) { schedule(eye, true); });
+
+      // Dilation scheduler: each eye, every 15 to 45 s, swells a little
+      // (one in five times it tightens instead) and settles back.
+      function scheduleDilate(eye, first) {
+        var wait = first ? rand(4000, 30000) : rand(15000, 45000);
+        setTimeout(function () { dilate(eye); }, wait);
+      }
+      function dilate(eye) {
+        var pupil = eye.querySelector('.pupil');
+        var tighten = Math.random() < 0.2;
+        pupil.style.setProperty('--dil-scale', (tighten ? rand(0.86, 0.92) : rand(1.12, 1.22)).toFixed(3));
+        pupil.style.setProperty('--dil-dur', Math.round(rand(1500, 2600)) + 'ms');
+        pupil.classList.remove('dilate');
+        void pupil.getBoundingClientRect();
+        pupil.classList.add('dilate');
+        var done = function () {
+          pupil.removeEventListener('animationend', done);
+          pupil.classList.remove('dilate');
+          scheduleDilate(eye, false);
+        };
+        pupil.addEventListener('animationend', done);
+      }
+      eyes.forEach(function (eye) { scheduleDilate(eye, true); });
     })();
   </script>
   <p class="origin-line" style="position:fixed; left:50%; bottom:22px; transform:translateX(-50%); text-align:center; margin:0; z-index:4; pointer-events:none; font:600 .72rem/1.4 'Quicksand',sans-serif; color:#6a7b71; letter-spacing:.02em;"><span style="text-transform:uppercase; letter-spacing:.12em; font-size:.62rem; margin-right:.6em;">Origin</span>Institute of Neuroinformatics, Zürich</p>
