@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>qualiaheads — ten versions</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#e3f2e2;color:#3d4f46;font-family:Quicksand,sans-serif;padding:clamp(20px,4vw,56px)}
+  h1{font-family:Fraunces,serif;font-variation-settings:"opsz" 96,"SOFT" 100,"WONK" 1;font-weight:400;font-size:2.4rem;margin:0 0 .2em}
+  p.intro{color:#6a7b71;margin:0 0 2rem}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:28px}
+  .card{display:block;text-decoration:none;color:inherit;background:rgba(255,255,255,.4);border:1px solid rgba(61,79,70,.14);border-radius:18px;overflow:hidden;transition:transform .3s ease}
+  .card:hover{transform:translateY(-3px)}
+  .card iframe{width:100%;aspect-ratio:16/10;border:0;display:block;pointer-events:none;background:#e3f2e2}
+  .meta{padding:14px 18px 16px;display:grid;gap:4px}
+  .meta strong{font-weight:700} .meta span{color:#6a7b71;font-size:.9rem;line-height:1.45}
+  @media (max-width:520px){.grid{grid-template-columns:1fr}}
+</style></head><body>
+<h1>Ten versions</h1>
+<p class="intro">Live previews, scaled down. Click a card to open the full page.</p>
+<div class="grid">
+    <a class="card" href="00-scene.html">
+      <iframe src="00-scene.html" loading="lazy" tabindex="-1" title="Scene"></iframe>
+      <div class="meta"><strong>00 · Scene</strong><span>The earlier main page: text left, an animated scene of bands, orbs, a lens and a dome on the right.</span></div>
+    </a>
+    <a class="card" href="01-poster.html">
+      <iframe src="01-poster.html" loading="lazy" tabindex="-1" title="Poster"></iframe>
+      <div class="meta"><strong>01 · Poster</strong><span>Still risograph poster. Three bands edge to edge, the mark on a band, huge wordmark. Only an entrance fade.</span></div>
+    </a>
+    <a class="card" href="02-orb-field.html">
+      <iframe src="02-orb-field.html" loading="lazy" tabindex="-1" title="Orb field"></iframe>
+      <div class="meta"><strong>02 · Orb field</strong><span>A canvas sea of forty to eighty drifting orbs at three depths. Continuous slow motion.</span></div>
+    </a>
+    <a class="card" href="03-eyes.html">
+      <iframe src="03-eyes.html" loading="lazy" tabindex="-1" title="Eyes"></iframe>
+      <div class="meta"><strong>03 · Eyes</strong><span>Thirteen lens eyes that look around and blink at their own pace.</span></div>
+    </a>
+    <a class="card" href="04-type.html">
+      <iframe src="04-type.html" loading="lazy" tabindex="-1" title="Type"></iframe>
+      <div class="meta"><strong>04 · Type</strong><span>The wordmark fills the width edge to edge, filled with sliding gradient bands. The i is dotted with the mark.</span></div>
+    </a>
+    <a class="card" href="05-sunrise.html">
+      <iframe src="05-sunrise.html" loading="lazy" tabindex="-1" title="Sunrise"></iframe>
+      <div class="meta"><strong>05 · Sunrise</strong><span>A huge dome horizon and an orb that rises and sets on a ninety-second loop while the sky warms.</span></div>
+    </a>
+    <a class="card" href="06-stripes.html">
+      <iframe src="06-stripes.html" loading="lazy" tabindex="-1" title="Stripes"></iframe>
+      <div class="meta"><strong>06 · Stripes</strong><span>A wall of twenty breathing gradient stripes with orbs and arches punched out.</span></div>
+    </a>
+    <a class="card" href="07-liquid.html">
+      <iframe src="07-liquid.html" loading="lazy" tabindex="-1" title="Liquid"></iframe>
+      <div class="meta"><strong>07 · Liquid</strong><span>Six large blended colour blobs drifting over each other, the mark crisp in the middle.</span></div>
+    </a>
+    <a class="card" href="08-orbit.html">
+      <iframe src="08-orbit.html" loading="lazy" tabindex="-1" title="Orbit"></iframe>
+      <div class="meta"><strong>08 · Orbit</strong><span>An orrery: the mark at the centre, marks and orbs on four tilted dashed rings.</span></div>
+    </a>
+    <a class="card" href="09-stickers.html">
+      <iframe src="09-stickers.html" loading="lazy" tabindex="-1" title="Stickers"></iframe>
+      <div class="meta"><strong>09 · Stickers</strong><span>Seventeen die-cut marks land one by one, then rock almost imperceptibly.</span></div>
+    </a>
+    <a class="card" href="10-breath.html">
+      <iframe src="10-breath.html" loading="lazy" tabindex="-1" title="Breath"></iframe>
+      <div class="meta"><strong>10 · Breath</strong><span>One enormous orb off the right edge, breathing and slowly cycling its colours.</span></div>
+    </a>
+</div>
+<script>
+  // scale each live preview so a 1440px layout fits the card
+  const fit = () => document.querySelectorAll('.card iframe').forEach(f => {
+    const w = f.parentElement.clientWidth; const s = w / 1440;
+    f.style.width = '1440px'; f.style.height = '900px'; f.style.aspectRatio = 'auto';
+    f.style.transform = `scale(${s})`; f.style.transformOrigin = '0 0';
+    f.parentElement.style.setProperty('--h', (900 * s) + 'px');
+    f.parentElement.querySelector('iframe').parentElement.style.height = 'auto';
+    f.parentElement.style.position = 'relative';
+    f.parentElement.querySelector('.meta').style.marginTop = (900 * s - 900) + 'px';
+  });
+  addEventListener('load', fit); addEventListener('resize', fit);
+</script>
+</body></html>

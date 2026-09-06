@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>qualiaheads</title>
+  <meta name="theme-color" content="#e3f2e2" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --mint: #e3f2e2;
+      --mint-deep: #cfe7d2;
+      --peach: #f6b27c;
+      --orange: #ef8a5c;
+      --sun: #f5d67f;
+      --teal: #5fb9ab;
+      --aqua: #93d4c7;
+      --magenta: #c9548f;
+      --ink: #3d4f46;
+      --ink-soft: #6a7b71;
+
+      --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+      --font-sans: "Quicksand", "Avenir Next", "Segoe UI", sans-serif;
+      --pad: clamp(18px, 3vw, 40px);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; overflow: hidden; }
+    body {
+      margin: 0;
+      background: var(--mint);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-weight: 500;
+      -webkit-font-smoothing: antialiased;
+    }
+    :focus-visible { outline: 3px solid var(--magenta); outline-offset: 4px; border-radius: 999px; }
+
+    /* a very faint warm vignette so the ground is paper, not screen */
+    .paper {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(120vmax 90vmax at 50% 120%, rgba(207,231,210,.9), transparent 60%),
+        radial-gradient(70vmax 50vmax at 50% -20%, rgba(255,255,255,.55), transparent 60%);
+    }
+
+    .grain {
+      position: fixed; inset: 0; z-index: 3; pointer-events: none;
+      opacity: .42; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.25  0 0 0 0 0.32  0 0 0 0 0.28  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      background-size: 220px 220px;
+    }
+
+    /* ---------- the word ---------- */
+    .stage {
+      position: relative; z-index: 1;
+      height: 100svh;
+      display: grid; place-items: center;
+    }
+    #word {
+      display: block; width: 100%; height: auto;
+      overflow: visible;
+      opacity: 0; transition: opacity 1.2s ease;
+    }
+    .ready #word { opacity: 1; }
+
+    /* ---------- corners ---------- */
+    .corner {
+      position: fixed; z-index: 2;
+      opacity: 0; transition: opacity 1s ease .2s;
+    }
+    .ready .corner { opacity: 1; }
+
+    .mood {
+      top: var(--pad); left: var(--pad);
+      font-family: var(--font-display);
+      font-variation-settings: "opsz" 24, "SOFT" 100, "WONK" 1;
+      font-style: italic; font-weight: 400;
+      font-size: clamp(.95rem, 1.1vw, 1.1rem);
+      color: var(--ink-soft);
+      letter-spacing: .005em;
+    }
+
+    .meetup {
+      right: var(--pad); bottom: var(--pad);
+      text-align: right;
+      min-width: 9.5rem;
+    }
+    .meetup .label {
+      display: block;
+      font-size: .66rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .meetup .value {
+      display: block; margin-top: 4px; padding-bottom: 6px;
+      font-family: var(--font-display);
+      font-variation-settings: "opsz" 48, "SOFT" 100, "WONK" 1;
+      font-weight: 500; font-size: 1.35rem; line-height: 1.1;
+      color: var(--ink);
+      border-bottom: 1px dashed rgba(61,79,70,.35);
+    }
+
+    @media (max-width: 600px) {
+      .mood { font-size: 1rem; }
+      .meetup { min-width: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #word, .corner { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="paper" aria-hidden="true"></div>
+
+  <main class="stage">
+    <svg id="word" viewBox="0 0 1000 300" role="img" aria-label="qualiaheads" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- the sliding risograph bands: sun → peach → orange → teal → magenta, repeating -->
+        <linearGradient id="riso-bands" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="640" y2="230" spreadMethod="repeat">
+          <stop offset="0"    stop-color="#f5d67f"/>
+          <stop offset=".13"  stop-color="#f6b27c"/>
+          <stop offset=".25"  stop-color="#f6b27c"/>
+          <stop offset=".37"  stop-color="#ef8a5c"/>
+          <stop offset=".47"  stop-color="#ef8a5c"/>
+          <stop offset=".6"   stop-color="#5fb9ab"/>
+          <stop offset=".7"   stop-color="#5fb9ab"/>
+          <stop offset=".82"  stop-color="#c9548f"/>
+          <stop offset=".9"   stop-color="#c9548f"/>
+          <stop offset="1"    stop-color="#f5d67f"/>
+        </linearGradient>
+        <linearGradient id="head" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#f6b27c"/><stop offset="1" stop-color="#ef8a5c"/>
+        </linearGradient>
+        <linearGradient id="orb" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#f5d67f"/><stop offset=".38" stop-color="#93d4c7"/>
+          <stop offset=".72" stop-color="#5fb9ab"/><stop offset="1" stop-color="#c9548f"/>
+        </linearGradient>
+        <!-- static grain tile, rasterised once, multiplied onto the letters only -->
+        <pattern id="ink-grain" patternUnits="userSpaceOnUse" width="160" height="160">
+          <image width="160" height="160" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' seed='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.24  0 0 0 0 0.3  0 0 0 0 0.27  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"/>
+        </pattern>
+        <clipPath id="word-clip">
+          <use href="#l1"/>
+          <use href="#l2"/>
+          <use href="#dot-arch"/>
+          <use href="#dot-orb"/>
+        </clipPath>
+      </defs>
+
+      <g id="misreg" transform="translate(5 4)" fill="#5fb9ab" opacity=".45" style="mix-blend-mode: multiply">
+        <use href="#l1"/>
+        <use href="#l2"/>
+      </g>
+      <g id="letters" fill="url(#riso-bands)">
+        <text id="l1" x="0" y="0" style="font-family:Fraunces,'Iowan Old Style',Georgia,serif;font-size:100px;font-weight:400;font-variation-settings:'opsz' 144,'SOFT' 100,'WONK' 1">qualıa</text>
+        <text id="l2" x="0" y="0" style="font-family:Fraunces,'Iowan Old Style',Georgia,serif;font-size:100px;font-weight:400;font-variation-settings:'opsz' 144,'SOFT' 100,'WONK' 1">heads</text>
+      </g>
+      <!-- the dot of the i: a tiny arch with its orb -->
+      <path id="dot-arch" d="M22 196 V100 a78 78 0 0 1 156 0 V196 Z" fill="url(#head)"/>
+      <circle id="dot-orb" cx="100" cy="96" r="46" fill="url(#orb)"/>
+
+      <g clip-path="url(#word-clip)" style="mix-blend-mode: multiply" opacity=".55">
+        <rect id="grain-rect" x="-50" y="-50" width="1100" height="400" fill="url(#ink-grain)"/>
+      </g>
+    </svg>
+  </main>
+
+  <p class="corner mood">Something it is like.</p>
+
+  <section class="corner meetup" aria-labelledby="meetup-label">
+    <span class="label" id="meetup-label">Next meet-up</span>
+    <span class="value">TBD</span>
+  </section>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <script>
+    (function () {
+      const svg = document.getElementById('word');
+      const l1 = document.getElementById('l1');
+      const l2 = document.getElementById('l2');
+      const arch = document.getElementById('dot-arch');
+      const orb = document.getElementById('dot-orb');
+      const grainRect = document.getElementById('grain-rect');
+      const grad = document.getElementById('riso-bands');
+      const W = 1000; // viewBox width, fixed
+
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+
+      // Ink-bounds measurement via canvas (glyph cells from getBBox are too loose).
+      const ctx = document.createElement('canvas').getContext('2d');
+      function ink(str) {
+        ctx.font = '400 100px Fraunces';
+        const m = ctx.measureText(str);
+        return {
+          left: -m.actualBoundingBoxLeft,       // ink left edge relative to x=0
+          right: m.actualBoundingBoxRight,
+          asc: m.actualBoundingBoxAscent,
+          desc: m.actualBoundingBoxDescent,
+          width: m.actualBoundingBoxLeft + m.actualBoundingBoxRight
+        };
+      }
+
+      function placeLine(el, str, m, baseline) {
+        const s = W / m.width;
+        el.textContent = str;
+        el.setAttribute('transform', `translate(${(-m.left * s).toFixed(3)} ${baseline.toFixed(3)}) scale(${s.toFixed(5)})`);
+        return s;
+      }
+
+      function placeDot(textEl, str, s, baseline) {
+        // the dotless i is the 5th glyph of "qualıa"; find its stem centre
+        const idx = str.indexOf('ı');
+        if (idx < 0) { arch.style.display = orb.style.display = 'none'; return; }
+        let ext;
+        try { ext = textEl.getExtentOfChar(idx); } catch (e) { arch.style.display = orb.style.display = 'none'; return; }
+        const cx = ext.x + ext.width / 2 + 0.6;           // local units (100px em), nudged for the stem's optical centre
+        const bottom = -57;                                // arch bottom sits 0.57em above the baseline
+        const k = 0.105;                                   // arch height 0.105 * 174 ≈ 0.18em
+        const tr = textEl.transform.baseVal.consolidate().matrix;
+        // local → viewBox: apply the text's transform to the arch's own transform
+        const t = `matrix(${tr.a} ${tr.b} ${tr.c} ${tr.d} ${tr.e} ${tr.f}) translate(${(cx - 100 * k).toFixed(3)} ${(bottom - 196 * k).toFixed(3)}) scale(${k})`;
+        arch.setAttribute('transform', t);
+        orb.setAttribute('transform', t);
+        arch.style.display = orb.style.display = '';
+      }
+
+      function layout() {
+        const vw = document.documentElement.clientWidth || innerWidth;
+        const vh = innerHeight;
+        const A = 'qualıa', B = 'heads', AB = 'qualıaheads';
+        const mA = ink(A), mB = ink(B), mAB = ink(AB);
+        const px = vw / W; // one viewBox unit in px
+
+        // two-line lockup: both lines edge to edge
+        const sA = W / mA.width, sB = W / mB.width;
+        const gap = 0.06 * 100 * sB;
+        const hTwo = mA.asc * sA + mA.desc * sA + gap + mB.asc * sB + mB.desc * sB;
+        const hOne = (mAB.asc + mAB.desc) * (W / mAB.width);
+
+        const twoLines = hTwo * px <= vh * 0.72;
+        let H;
+        if (twoLines) {
+          const b1 = mA.asc * sA;
+          placeLine(l1, A, mA, b1);
+          const b2 = b1 + mA.desc * sA + gap + mB.asc * sB;
+          placeLine(l2, B, mB, b2);
+          l2.style.display = '';
+          H = hTwo;
+          placeDot(l1, A, sA, b1);
+        } else {
+          const s = W / mAB.width;
+          const b1 = mAB.asc * s;
+          placeLine(l1, AB, mAB, b1);
+          l2.style.display = 'none';
+          H = hOne;
+          placeDot(l1, AB, s, b1);
+        }
+        svg.setAttribute('viewBox', `0 0 ${W} ${H.toFixed(2)}`);
+        grainRect.setAttribute('y', -50);
+        grainRect.setAttribute('height', H + 100);
+        // band vector: roughly one and a half cycles across the width, slanted
+        cycle = twoLines ? { x: 560, y: 330 } : { x: 640, y: 230 };
+        grad.setAttribute('x2', cycle.x); grad.setAttribute('y2', cycle.y);
+      }
+
+      let cycle = { x: 640, y: 230 };
+      const PERIOD = 30000; // ms for one full slide of the bands
+      let raf = 0;
+      function tick(now) {
+        const t = (now % PERIOD) / PERIOD;
+        grad.setAttribute('gradientTransform', `translate(${(cycle.x * t).toFixed(2)} ${(cycle.y * t).toFixed(2)})`);
+        raf = requestAnimationFrame(tick);
+      }
+      function startMotion() {
+        cancelAnimationFrame(raf);
+        if (reduce.matches) { grad.setAttribute('gradientTransform', 'translate(160 60)'); return; }
+        raf = requestAnimationFrame(tick);
+      }
+      reduce.addEventListener('change', startMotion);
+
+      let pending = 0;
+      function relayout() {
+        cancelAnimationFrame(pending);
+        pending = requestAnimationFrame(layout);
+      }
+
+      Promise.all([
+        document.fonts.load('400 100px Fraunces'),
+        document.fonts.load('italic 400 16px Fraunces'),
+        document.fonts.load('700 12px Quicksand')
+      ]).catch(() => {}).then(() => document.fonts.ready).then(() => {
+        layout();
+        startMotion();
+        requestAnimationFrame(() => document.body.classList.add('ready'));
+        addEventListener('resize', relayout);
+      });
+    })();
+  </script>
+  <p class="origin-line" style="position:fixed; left:28px; bottom:22px; margin:0; z-index:4; pointer-events:none; font:600 .72rem/1.4 'Quicksand',sans-serif; color:#6a7b71; letter-spacing:.02em;"><span style="text-transform:uppercase; letter-spacing:.12em; font-size:.62rem; margin-right:.6em;">Origin</span>Institute of Neuroinformatics, Zürich</p>
+</body>
+</html>

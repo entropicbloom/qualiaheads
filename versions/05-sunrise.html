@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>qualiaheads</title>
+  <meta name="theme-color" content="#e3f2e2" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --mint: #e3f2e2;
+      --mint-deep: #cfe7d2;
+      --peach: #f6b27c;
+      --orange: #ef8a5c;
+      --sun: #f5d67f;
+      --teal: #5fb9ab;
+      --aqua: #93d4c7;
+      --magenta: #c9548f;
+      --ink: #3d4f46;
+      --ink-soft: #6a7b71;
+
+      --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+      --font-sans: "Quicksand", "Avenir Next", "Segoe UI", sans-serif;
+
+      /* scene geometry */
+      --dome-h: clamp(170px, 36vh, 400px);          /* visible height of the dome crest above the bottom edge */
+      --orb-d: clamp(240px, 46vmin, 520px);          /* orb diameter */
+      --rise: clamp(160px, 38vh, 360px);             /* how far the orb climbs from low to peak */
+      --day: 90s;                                    /* one full sunrise-and-set */
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; overflow: hidden; }
+    body {
+      margin: 0;
+      background: var(--mint);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-weight: 500;
+      -webkit-font-smoothing: antialiased;
+      opacity: 0;
+      transition: opacity 1.8s ease;
+    }
+    body.loaded { opacity: 1; }
+
+    :focus-visible { outline: 3px solid var(--magenta); outline-offset: 4px; border-radius: 999px; }
+
+    /* ---------- sky ---------- */
+    .sky {
+      position: fixed; inset: 0; pointer-events: none;
+    }
+    /* still base: a little deeper mint at the top, pale toward the horizon */
+    .sky-base {
+      z-index: 0;
+      background: linear-gradient(to bottom, var(--mint-deep) 0%, var(--mint) 55%, #eaf5e6 100%);
+    }
+    /* golden warmth: strongest when the sun stands at its peak */
+    .sky-dawn {
+      z-index: 1; opacity: 0;
+      background:
+        radial-gradient(90% 70% at 50% 78%, rgba(245,214,127,.62) 0%, rgba(246,178,124,.34) 38%, rgba(246,178,124,0) 72%),
+        radial-gradient(140% 60% at 50% 100%, rgba(239,138,92,.22) 0%, rgba(239,138,92,0) 60%);
+      animation: warm var(--day) ease-in-out infinite;
+    }
+    /* magenta blush: strongest while the sun is low, fades away at the peak */
+    .sky-blush {
+      z-index: 1; opacity: 0;
+      background:
+        radial-gradient(120% 55% at 50% 72%, rgba(201,84,143,.20) 0%, rgba(201,84,143,.08) 45%, rgba(201,84,143,0) 70%);
+      animation: blush var(--day) ease-in-out infinite;
+    }
+    @keyframes warm {
+      0%, 100% { opacity: 0; }
+      50%      { opacity: 1; }
+    }
+    @keyframes blush {
+      0%, 100% { opacity: .35; }
+      25%, 75% { opacity: 1; }
+      50%      { opacity: .1; }
+    }
+
+    /* ---------- the sun ---------- */
+    .orb-wrap {
+      position: fixed; z-index: 2; pointer-events: none;
+      left: 50%;
+      bottom: calc(var(--dome-h) - var(--orb-d) * .62);   /* low point: ~60% of the orb still shows over the crest */
+      width: var(--orb-d); height: var(--orb-d);
+      margin-left: calc(var(--orb-d) / -2);
+      animation: rise var(--day) ease-in-out infinite;
+      will-change: transform;
+    }
+    @keyframes rise {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(calc(-1 * var(--rise))); }
+    }
+    .orb {
+      position: absolute; inset: 0; border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0) 55%, rgba(255,255,255,.35) 100%),
+        linear-gradient(to bottom, var(--sun) 0%, var(--aqua) 38%, var(--teal) 72%, var(--magenta) 100%);
+    }
+    .halo {
+      position: absolute; inset: -60%; border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,214,127,.55) 0%, rgba(246,178,124,.28) 30%, rgba(246,178,124,0) 62%);
+      animation: glow var(--day) ease-in-out infinite;
+    }
+    @keyframes glow {
+      0%, 100% { opacity: .55; }
+      50%      { opacity: 1; }
+    }
+
+    /* ---------- the dome ---------- */
+    .dome {
+      position: fixed; z-index: 3; pointer-events: none;
+      left: 50%; bottom: 0;
+      width: min(94vw, 1400px); height: var(--dome-h);
+      transform: translateX(-50%);
+      display: block;
+    }
+
+    /* ---------- words ---------- */
+    .words {
+      position: fixed; z-index: 4;
+      left: 0; right: 0;
+      bottom: calc(var(--dome-h) + 5vh);
+      display: grid; justify-items: center; row-gap: clamp(10px, 2vh, 22px);
+      padding: 0 20px;
+      text-align: center;
+    }
+    .mood {
+      margin: 0;
+      font-family: var(--font-display);
+      font-variation-settings: "opsz" 48, "SOFT" 100, "WONK" 1;
+      font-style: italic; font-weight: 400;
+      font-size: clamp(1rem, 1.5vw, 1.25rem);
+      letter-spacing: .01em;
+      color: var(--ink-soft);
+    }
+    h1 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+      font-weight: 400;
+      font-size: clamp(3.4rem, 11.5vw, 10rem);
+      line-height: .9; letter-spacing: -.025em;
+      color: var(--ink);
+    }
+    .meetup {
+      margin: clamp(4px, 1vh, 12px) 0 0;
+      display: inline-flex; flex-wrap: wrap; align-items: baseline; justify-content: center;
+      column-gap: 14px; row-gap: 6px;
+      font-size: .82rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .meetup .value {
+      display: inline-block; min-width: 11rem;
+      padding: 0 .6em 3px;
+      border-bottom: 1.5px dashed rgba(61,79,70,.45);
+      font-family: var(--font-display);
+      font-variation-settings: "opsz" 48, "SOFT" 100, "WONK" 1;
+      font-style: italic; font-weight: 500; text-transform: none; letter-spacing: 0;
+      font-size: 1.45rem; line-height: 1;
+      color: var(--ink);
+    }
+
+    /* ---------- grain ---------- */
+    .grain {
+      position: fixed; inset: 0; z-index: 9; pointer-events: none;
+      opacity: .4; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.25  0 0 0 0 0.32  0 0 0 0 0.28  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      background-size: 220px 220px;
+    }
+
+    @media (max-width: 640px) {
+      :root {
+        --dome-h: clamp(150px, 28vh, 260px);
+        --orb-d: clamp(230px, 70vw, 300px);
+        --rise: clamp(180px, 34vh, 300px);
+      }
+      .dome { width: 140vw; }
+      .words { bottom: calc(var(--dome-h) + 7vh); }
+      .meetup { flex-direction: column; align-items: center; row-gap: 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body { transition: none; opacity: 1; }
+      .sky-dawn, .sky-blush, .orb-wrap, .halo { animation: none !important; }
+      .sky-dawn { opacity: .6; }
+      .sky-blush { opacity: .5; }
+      .halo { opacity: .8; }
+      .orb-wrap { transform: translateY(calc(-.6 * var(--rise))); }
+    }
+  </style>
+</head>
+<body>
+  <div class="sky sky-base" aria-hidden="true"></div>
+  <div class="sky sky-blush" aria-hidden="true"></div>
+  <div class="sky sky-dawn" aria-hidden="true"></div>
+
+  <div class="orb-wrap" aria-hidden="true">
+    <div class="halo"></div>
+    <div class="orb"></div>
+  </div>
+
+  <!-- the horizon dome: the mark's arc, scaled up and clipped to its crest -->
+  <svg class="dome" viewBox="0 0 184 92" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="head" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#f6b27c"/><stop offset=".9" stop-color="#ef8a5c"/>
+      </linearGradient>
+      <filter id="riso" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="7" result="noise"/>
+        <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .22 0" result="grain"/>
+        <feComposite in="grain" in2="SourceGraphic" operator="in" result="clipped"/>
+        <feBlend in="SourceGraphic" in2="clipped" mode="multiply"/>
+      </filter>
+    </defs>
+    <g filter="url(#riso)">
+      <path d="M0 92 a92 92 0 0 1 184 0 Z" fill="url(#head)"/>
+    </g>
+  </svg>
+
+  <main class="words">
+    <p class="mood">Something it is like.</p>
+    <h1>qualiaheads</h1>
+    <p class="meetup"><span class="label">Next meet-up</span><span class="value">TBD</span></p>
+  </main>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <script>
+    requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add('loaded')));
+  </script>
+  <p class="origin-line" style="position:fixed; left:28px; top:22px; margin:0; z-index:4; pointer-events:none; font:600 .72rem/1.4 'Quicksand',sans-serif; color:#6a7b71; letter-spacing:.02em;"><span style="text-transform:uppercase; letter-spacing:.12em; font-size:.62rem; margin-right:.6em;">Origin</span>Institute of Neuroinformatics, Zürich</p>
+</body>
+</html>

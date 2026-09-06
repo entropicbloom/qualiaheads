@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>qualiaheads</title>
+  <meta name="theme-color" content="#e3f2e2" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --mint: #e3f2e2;
+      --mint-deep: #cfe7d2;
+      --peach: #f6b27c;
+      --orange: #ef8a5c;
+      --sun: #f5d67f;
+      --teal: #5fb9ab;
+      --aqua: #93d4c7;
+      --magenta: #c9548f;
+      --ink: #3d4f46;
+      --ink-soft: #6a7b71;
+      --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+      --font-sans: "Quicksand", "Avenir Next", "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; overflow: hidden; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(70vmax 60vmax at 12% 10%, rgba(246,178,124,.34), transparent 65%),
+        radial-gradient(70vmax 60vmax at 88% 92%, rgba(147,212,199,.40), transparent 65%),
+        radial-gradient(40vmax 40vmax at 80% 12%, rgba(245,214,127,.28), transparent 65%),
+        var(--mint);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-weight: 500;
+      -webkit-font-smoothing: antialiased;
+    }
+    :focus-visible { outline: 3px solid var(--magenta); outline-offset: 4px; border-radius: 999px; }
+
+    /* ---------- the sea ---------- */
+    #field {
+      position: fixed; inset: 0; z-index: 0;
+      width: 100%; height: 100%; display: block;
+      pointer-events: none;
+    }
+
+    /* a soft mint lift behind the wordmark so it stays readable over the orbs */
+    .veil {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      background: radial-gradient(46vmax 30vmax at 50% 50%, rgba(227,242,226,.62), rgba(227,242,226,.28) 45%, transparent 72%);
+    }
+
+    .grain {
+      position: fixed; inset: 0; z-index: 3; pointer-events: none;
+      opacity: .4; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.25  0 0 0 0 0.32  0 0 0 0 0.28  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      background-size: 220px 220px;
+    }
+
+    /* ---------- content ---------- */
+    .hero {
+      position: relative; z-index: 2;
+      min-height: 100svh;
+      display: grid; place-items: center;
+      padding: clamp(20px, 4vw, 48px);
+      text-align: center;
+    }
+    .stack { display: grid; justify-items: center; gap: clamp(14px, 2.4vh, 26px); max-width: 100%; }
+
+    .mood {
+      margin: 0;
+      font-size: clamp(.7rem, .55rem + .5vw, .86rem);
+      font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--ink); opacity: .78;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(3.4rem, 1rem + 12.6vw, 10.5rem);
+      line-height: .95; letter-spacing: -.025em;
+      padding: 0 .12em; /* italic overhang */
+      color: var(--ink);
+      text-shadow: 0 1px 0 rgba(255,255,255,.35), 0 0 34px rgba(227,242,226,.9);
+      max-width: 100%;
+    }
+
+    .meetup {
+      display: inline-grid; justify-items: center; gap: 1px;
+      margin-top: clamp(6px, 1.6vh, 16px);
+      padding: 13px 34px 15px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.62);
+      border: 1px solid rgba(61,79,70,.22);
+      box-shadow: 0 10px 34px rgba(61,79,70,.10), inset 0 1px 0 rgba(255,255,255,.7);
+    }
+    .meetup .label {
+      font-size: .74rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .meetup strong {
+      font-family: var(--font-display);
+      font-variation-settings: "opsz" 48, "SOFT" 100, "WONK" 1;
+      font-weight: 500; font-size: 1.9rem; line-height: 1.05;
+      color: var(--ink);
+    }
+
+    /* ---------- entrance ---------- */
+    .rise { animation: rise 1s cubic-bezier(.2,.8,.2,1) both; }
+    .stack .rise:nth-child(1) { animation-delay: .35s; }
+    .stack .rise:nth-child(2) { animation-delay: .15s; }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    @media (max-width: 480px) {
+      .meetup { padding: 11px 26px 13px; }
+      .meetup strong { font-size: 1.6rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .rise { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div class="veil" aria-hidden="true"></div>
+
+  <main class="hero">
+    <div class="stack">
+      <p class="mood rise">Something it is like.</p>
+      <h1 class="rise">qualiaheads</h1>
+      <section class="meetup" aria-labelledby="meetup-label">
+        <span class="label" id="meetup-label">Next meet-up</span>
+        <strong>TBD</strong>
+      </section>
+    </div>
+  </main>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <script>
+    (() => {
+      const canvas = document.getElementById('field');
+      const ctx = canvas.getContext('2d');
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+      const TAU = Math.PI * 2;
+      let W = 0, H = 0, dpr = 1, orbs = [], raf = 0, last = 0, t = 0;
+
+      const rnd = (a, b) => a + Math.random() * (b - a);
+
+      // Pre-render one orb sprite: vertical sun -> aqua -> teal -> magenta, a faint
+      // white highlight, and (for far orbs) a soft alpha edge that fakes blur.
+      function makeSprite(r, depth) {
+        const pad = 2, half = r + pad;
+        const s = Math.ceil(half * 2 * dpr);
+        const c = document.createElement('canvas');
+        c.width = c.height = s;
+        const g = c.getContext('2d');
+        g.scale(dpr, dpr);
+        const cx = half, cy = half;
+
+        const grad = g.createLinearGradient(0, cy - r, 0, cy + r);
+        grad.addColorStop(0, '#f5d67f');
+        grad.addColorStop(.34, '#93d4c7');
+        grad.addColorStop(.62, '#5fb9ab');
+        grad.addColorStop(.88, '#c9548f');
+        grad.addColorStop(1, '#c9548f');
+        g.fillStyle = grad;
+        g.beginPath(); g.arc(cx, cy, r, 0, TAU); g.fill();
+
+        const hx = cx - r * .32, hy = cy - r * .38;
+        const hl = g.createRadialGradient(hx, hy, 0, hx, hy, r * .85);
+        hl.addColorStop(0, 'rgba(255,255,255,.42)');
+        hl.addColorStop(.45, 'rgba(255,255,255,.10)');
+        hl.addColorStop(1, 'rgba(255,255,255,0)');
+        g.fillStyle = hl;
+        g.beginPath(); g.arc(cx, cy, r, 0, TAU); g.fill();
+
+        const soft = (1 - depth) * .6; // far orbs get a wide soft rim
+        if (soft > .06) {
+          const m = g.createRadialGradient(cx, cy, r * (1 - soft), cx, cy, r);
+          m.addColorStop(0, 'rgba(0,0,0,1)');
+          m.addColorStop(1, 'rgba(0,0,0,0)');
+          g.globalCompositeOperation = 'destination-in';
+          g.fillStyle = m;
+          g.fillRect(0, 0, half * 2, half * 2);
+        }
+        return { c, half };
+      }
+
+      function build() {
+        W = innerWidth; H = innerHeight;
+        dpr = Math.min(2, devicePixelRatio || 1);
+        canvas.width = Math.round(W * dpr);
+        canvas.height = Math.round(H * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        const scale = Math.max(.55, Math.min(1, Math.min(W, H) / 900));
+        const count = Math.round(Math.min(80, Math.max(40, (W * H) / 21000)));
+        orbs = [];
+        for (let i = 0; i < count; i++) {
+          const u = Math.random();
+          let depth, r, alpha, speed;
+          if (u < .16) {            // far: large, hazy, slow
+            depth = rnd(0, .3);   r = rnd(90, 210) * scale; alpha = rnd(.22, .36); speed = rnd(3, 7);
+          } else if (u < .5) {      // middle
+            depth = rnd(.3, .7);  r = rnd(22, 60) * scale;  alpha = rnd(.45, .72); speed = rnd(7, 14);
+          } else {                  // near: small, crisp, quicker
+            depth = rnd(.7, 1);   r = rnd(6, 20) * scale;   alpha = rnd(.85, 1);   speed = rnd(12, 26);
+          }
+          const dir = rnd(0, TAU);
+          const { c, half } = makeSprite(r, depth);
+          orbs.push({
+            sprite: c, half, depth, alpha,
+            x: rnd(-half, W + half), y: rnd(-half, H + half),
+            vx: Math.cos(dir) * speed, vy: Math.sin(dir) * speed - speed * .25, // a slight upward drift
+            a: rnd(5, 22) * (0.4 + depth * .6),
+            f: rnd(.12, .34), p: rnd(0, TAU),
+          });
+        }
+        orbs.sort((a, b) => a.depth - b.depth);
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        for (const o of orbs) {
+          const m = o.half;
+          const wx = Math.sin(t * o.f + o.p) * o.a;
+          const wy = Math.cos(t * o.f * .77 + o.p) * o.a * .7;
+          ctx.globalAlpha = o.alpha;
+          ctx.drawImage(o.sprite, o.x + wx - m, o.y + wy - m, m * 2, m * 2);
+        }
+        ctx.globalAlpha = 1;
+      }
+
+      function step(dt) {
+        t += dt;
+        for (const o of orbs) {
+          o.x += o.vx * dt; o.y += o.vy * dt;
+          const m = o.half + o.a, span = W + m * 2, vspan = H + m * 2;
+          if (o.x < -m) o.x += span; else if (o.x > W + m) o.x -= span;
+          if (o.y < -m) o.y += vspan; else if (o.y > H + m) o.y -= vspan;
+        }
+      }
+
+      function frame(now) {
+        const dt = Math.min(.05, (now - last) / 1000);
+        last = now;
+        step(dt);
+        draw();
+        raf = requestAnimationFrame(frame);
+      }
+
+      function start() {
+        cancelAnimationFrame(raf); raf = 0;
+        if (reduce.matches) { draw(); return; }
+        last = performance.now();
+        raf = requestAnimationFrame(frame);
+      }
+
+      let resizeTimer = 0;
+      addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => { build(); start(); }, 120);
+      });
+      reduce.addEventListener('change', start);
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) { cancelAnimationFrame(raf); raf = 0; }
+        else start();
+      });
+
+      build();
+      // settle the field a little before first paint so nothing looks freshly spawned
+      t = rnd(0, 100);
+      start();
+
+          })();
+  </script>
+  <p class="origin-line" style="position:fixed; left:28px; bottom:22px; margin:0; z-index:4; pointer-events:none; font:600 .72rem/1.4 'Quicksand',sans-serif; color:#6a7b71; letter-spacing:.02em;"><span style="text-transform:uppercase; letter-spacing:.12em; font-size:.62rem; margin-right:.6em;">Origin</span>Institute of Neuroinformatics, Zürich</p>
+</body>
+</html>

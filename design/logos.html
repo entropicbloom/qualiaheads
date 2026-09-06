@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>qualiaheads — logo variations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --mint: #e3f2e2; --peach: #f6b27c; --orange: #ef8a5c; --sun: #f5d67f;
+      --teal: #5fb9ab; --aqua: #93d4c7; --magenta: #c9548f; --ink: #3d4f46; --ink-soft: #6a7b71;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--mint); color: var(--ink); font-family: "Quicksand", sans-serif; font-weight: 500; padding: clamp(24px, 5vw, 64px); }
+    h1 { font-family: "Fraunces", serif; font-variation-settings: "opsz" 96, "SOFT" 100, "WONK" 1; font-weight: 400; font-size: 2.2rem; margin: 0 0 .2em; }
+    .intro { color: var(--ink-soft); margin: 0 0 2.5rem; max-width: 40rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .card { background: rgba(255,255,255,.35); border: 1px solid rgba(61,79,70,.12); border-radius: 22px; padding: 26px 24px 20px; display: grid; gap: 14px; }
+    .card svg.big { width: 170px; height: 170px; margin: 0 auto; display: block; }
+    .card h2 { font-size: 1.05rem; margin: 0; font-weight: 700; }
+    .card p { margin: 0; font-size: .92rem; color: var(--ink-soft); line-height: 1.5; }
+    .lockup { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 1.05rem; padding-top: 10px; border-top: 1px solid rgba(61,79,70,.12); }
+    .lockup svg { width: 30px; height: 30px; }
+    .lockup .tiny { width: 16px; height: 16px; margin-left: auto; opacity: .9; }
+    .lockup small { color: var(--ink-soft); font-weight: 500; font-size: .8rem; }
+    .grain { position: fixed; inset: 0; pointer-events: none; opacity: .38; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.25  0 0 0 0 0.32  0 0 0 0 0.28  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      background-size: 220px 220px; }
+  </style>
+</head>
+<body>
+  <!-- shared gradients and grain filter, referenced by every mark below -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="head" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#f6b27c"/><stop offset="1" stop-color="#ef8a5c"/>
+      </linearGradient>
+      <linearGradient id="head2" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#f5d67f"/><stop offset="1" stop-color="#f6b27c"/>
+      </linearGradient>
+      <linearGradient id="orb" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#f5d67f"/><stop offset=".38" stop-color="#93d4c7"/>
+        <stop offset=".72" stop-color="#5fb9ab"/><stop offset="1" stop-color="#c9548f"/>
+      </linearGradient>
+      <linearGradient id="orbWarm" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#93d4c7"/><stop offset=".45" stop-color="#5fb9ab"/>
+        <stop offset=".8" stop-color="#c9548f"/><stop offset="1" stop-color="#ef8a5c"/>
+      </linearGradient>
+      <linearGradient id="band" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#f6b27c"/><stop offset=".5" stop-color="#ef8a5c"/>
+        <stop offset=".72" stop-color="#93d4c7"/><stop offset="1" stop-color="#5fb9ab"/>
+      </linearGradient>
+      <radialGradient id="halo" cx=".5" cy=".5" r=".5">
+        <stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".35"/>
+      </radialGradient>
+      <filter id="riso" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="7" result="noise"/>
+        <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .22 0" result="grain"/>
+        <feComposite in="grain" in2="SourceGraphic" operator="in" result="clipped"/>
+        <feBlend in="SourceGraphic" in2="clipped" mode="multiply"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <h1>Logo variations</h1>
+  <p class="intro">Same palette, same ingredients: a warm shape standing in for the head, and a gradient orb standing in for the quale. Each card shows the mark large, in the wordmark lockup, and at favicon size.</p>
+
+  <div class="grid">
+
+    <!-- 1. Arch -->
+    <div class="card">
+      <svg class="big" viewBox="0 0 200 200"><g filter="url(#riso)">
+        <path d="M22 196 V100 a78 78 0 0 1 156 0 V196 Z" fill="url(#head)"/>
+        <circle cx="100" cy="96" r="46" fill="url(#orb)"/><circle cx="100" cy="96" r="46" fill="url(#halo)"/>
+      </g></svg>
+      <h2>Arch</h2><p>The current one. A doorway or a hooded head, with the orb held inside. Calm and solid.</p>
+      <div class="lockup"><svg viewBox="0 0 200 200"><path d="M22 196 V100 a78 78 0 0 1 156 0 V196 Z" fill="url(#head)"/><circle cx="100" cy="96" r="46" fill="url(#orb)"/></svg>qualiaheads
+        <svg class="tiny" viewBox="0 0 200 200"><path d="M22 196 V100 a78 78 0 0 1 156 0 V196 Z" fill="url(#head)"/><circle cx="100" cy="96" r="46" fill="url(#orb)"/></svg></div>
+    </div>
+
+    <!-- 2. Crest -->
+    <div class="card">
+      <svg class="big" viewBox="0 0 200 200"><g filter="url(#riso)">
+        <path d="M22 196 V118 a78 78 0 0 1 156 0 V196 Z" fill="url(#head)"/>
+        <circle cx="100" cy="52" r="44" fill="url(#orb)"/><circle cx="100" cy="52" r="44" fill="url(#halo)"/>
+      </g></svg>
+      <h2>Crest</h2><p>The orb sits on the crown of the arch, half in and half out. A thought leaving a head, or arriving.</p>
+      <div class="lockup"><svg viewBox="0 0 200 200"><path d="M22 196 V118 a78 78 0 0 1 156 0 V196 Z" fill="url(#head)"/><circle cx="100" cy="52" r="44" fill="url(#orb)"/></svg>qualiaheads
+        <svg class="tiny" viewBox="0 0 200 200"><path d="M22 196 V118 a78 78 0 0 1 156 0 V196 Z" fill="url(#head)"/><circle cx="100" cy="52" r="44" fill="url(#orb)"/></svg></div>
+    </div>
+
+    <!-- 3. Horizon -->
+    <div class="card">
+      <svg class="big" viewBox="0 0 200 200"><g filter="url(#riso)">
+        <circle cx="100" cy="112" r="50" fill="url(#orb)"/><circle cx="100" cy="112" r="50" fill="url(#halo)"/>
+        <path d="M8 196 a92 92 0 0 1 184 0 Z" fill="url(#head)"/>
+      </g></svg>
+      <h2>Horizon</h2><p>The orb rising behind a dome, like a sun over a hill. Closest in spirit to the arcs in the reference print.</p>
+      <div class="lockup"><svg viewBox="0 0 200 200"><circle cx="100" cy="112" r="50" fill="url(#orb)"/><path d="M8 196 a92 92 0 0 1 184 0 Z" fill="url(#head)"/></svg>qualiaheads
+        <svg class="tiny" viewBox="0 0 200 200"><circle cx="100" cy="112" r="50" fill="url(#orb)"/><path d="M8 196 a92 92 0 0 1 184 0 Z" fill="url(#head)"/></svg></div>
+    </div>
+
+    <!-- 4. Lens -->
+    <div class="card">
+      <svg class="big" viewBox="0 0 200 200"><g filter="url(#riso)">
+        <path d="M10 100 C 40 30, 160 30, 190 100 C 160 170, 40 170, 10 100 Z" fill="url(#head)"/>
+        <circle cx="100" cy="100" r="46" fill="url(#orb)"/><circle cx="100" cy="100" r="46" fill="url(#halo)"/>
+      </g></svg>
+      <h2>Lens</h2><p>An eye, or a lens. The most literal nod to the reference image, and to the idea of looking inward.</p>
+      <div class="lockup"><svg viewBox="0 0 200 200"><path d="M10 100 C 40 30, 160 30, 190 100 C 160 170, 40 170, 10 100 Z" fill="url(#head)"/><circle cx="100" cy="100" r="46" fill="url(#orb)"/></svg>qualiaheads
+        <svg class="tiny" viewBox="0 0 200 200"><path d="M10 100 C 40 30, 160 30, 190 100 C 160 170, 40 170, 10 100 Z" fill="url(#head)"/><circle cx="100" cy="100" r="46" fill="url(#orb)"/></svg></div>
+    </div>
+
+    <!-- 5. Two heads -->
+    <div class="card">
+      <svg class="big" viewBox="0 0 200 200"><g filter="url(#riso)">
+        <path d="M6 196 V96 a58 58 0 0 1 116 0 V196 Z" fill="url(#head2)"/>
+        <path d="M78 196 V96 a58 58 0 0 1 116 0 V196 Z" fill="url(#head)" style="mix-blend-mode:multiply"/>
+        <circle cx="100" cy="102" r="34" fill="url(#orb)"/><circle cx="100" cy="102" r="34" fill="url(#halo)"/>
+      </g></svg>
+      <h2>Two heads</h2><p>Two arches overlapping, one orb shared between them. It is a group, and the point is the exchange.</p>
+      <div class="lockup"><svg viewBox="0 0 200 200"><path d="M6 196 V96 a58 58 0 0 1 116 0 V196 Z" fill="url(#head2)"/><path d="M78 196 V96 a58 58 0 0 1 116 0 V196 Z" fill="url(#head)" style="mix-blend-mode:multiply"/><circle cx="100" cy="102" r="34" fill="url(#orb)"/></svg>qualiaheads
+        <svg class="tiny" viewBox="0 0 200 200"><path d="M6 196 V96 a58 58 0 0 1 116 0 V196 Z" fill="url(#head2)"/><path d="M78 196 V96 a58 58 0 0 1 116 0 V196 Z" fill="url(#head)" style="mix-blend-mode:multiply"/><circle cx="100" cy="102" r="34" fill="url(#orb)"/></svg></div>
+    </div>
+
+    <!-- 6. Letter q -->
+    <div class="card">
+      <svg class="big" viewBox="0 0 200 200"><g filter="url(#riso)">
+        <path d="M128 92 h30 v90 a15 15 0 0 1 -30 0 Z" fill="url(#head)"/>
+        <circle cx="90" cy="92" r="58" fill="url(#orb)"/><circle cx="90" cy="92" r="58" fill="url(#halo)"/>
+      </g></svg>
+      <h2>Letter q</h2><p>The orb is the bowl of a lowercase q, the peach stroke its tail. A monogram for qualia that still reads as a shape.</p>
+      <div class="lockup"><svg viewBox="0 0 200 200"><path d="M128 92 h30 v90 a15 15 0 0 1 -30 0 Z" fill="url(#head)"/><circle cx="90" cy="92" r="58" fill="url(#orb)"/></svg>qualiaheads
+        <svg class="tiny" viewBox="0 0 200 200"><path d="M128 92 h30 v90 a15 15 0 0 1 -30 0 Z" fill="url(#head)"/><circle cx="90" cy="92" r="58" fill="url(#orb)"/></svg></div>
+    </div>
+
+    <!-- 7. Profile -->
+    <div class="card">
+      <svg class="big" viewBox="0 0 200 200"><g filter="url(#riso)">
+        <path d="M74 196 V158 C 28 148, 14 74, 62 36 C 98 8, 152 22, 164 68 C 168 84, 162 92, 166 102 L 180 118 L 166 126 C 170 140, 160 148, 146 144 C 134 152, 134 170, 142 196 Z" fill="url(#head)"/>
+        <circle cx="98" cy="84" r="36" fill="url(#orb)"/><circle cx="98" cy="84" r="36" fill="url(#halo)"/>
+      </g></svg>
+      <h2>Profile</h2><p>A soft side profile with the orb where the thinking happens. More figurative, a little more playful.</p>
+      <div class="lockup"><svg viewBox="0 0 200 200"><path d="M74 196 V158 C 28 148, 14 74, 62 36 C 98 8, 152 22, 164 68 C 168 84, 162 92, 166 102 L 180 118 L 166 126 C 170 140, 160 148, 146 144 C 134 152, 134 170, 142 196 Z" fill="url(#head)"/><circle cx="98" cy="84" r="36" fill="url(#orb)"/></svg>qualiaheads
+        <svg class="tiny" viewBox="0 0 200 200"><path d="M74 196 V158 C 28 148, 14 74, 62 36 C 98 8, 152 22, 164 68 C 168 84, 162 92, 166 102 L 180 118 L 166 126 C 170 140, 160 148, 146 144 C 134 152, 134 170, 142 196 Z" fill="url(#head)"/><circle cx="98" cy="84" r="36" fill="url(#orb)"/></svg></div>
+    </div>
+
+    <!-- 8. Open arch -->
+    <div class="card">
+      <svg class="big" viewBox="0 0 200 200"><g filter="url(#riso)">
+        <path d="M30 196 V104 a70 70 0 0 1 140 0 V196" fill="none" stroke="url(#head)" stroke-width="22" stroke-linecap="round"/>
+        <circle cx="100" cy="106" r="40" fill="url(#orbWarm)"/><circle cx="100" cy="106" r="40" fill="url(#halo)"/>
+      </g></svg>
+      <h2>Open arch</h2><p>The arch as an outline instead of a solid. Lighter, and the orb gets more room to glow.</p>
+      <div class="lockup"><svg viewBox="0 0 200 200"><path d="M30 196 V104 a70 70 0 0 1 140 0 V196" fill="none" stroke="url(#head)" stroke-width="22" stroke-linecap="round"/><circle cx="100" cy="106" r="40" fill="url(#orbWarm)"/></svg>qualiaheads
+        <svg class="tiny" viewBox="0 0 200 200"><path d="M30 196 V104 a70 70 0 0 1 140 0 V196" fill="none" stroke="url(#head)" stroke-width="22" stroke-linecap="round"/><circle cx="100" cy="106" r="40" fill="url(#orbWarm)"/></svg></div>
+    </div>
+
+    <!-- 9. Stripe -->
+    <div class="card">
+      <svg class="big" viewBox="0 0 200 200"><g filter="url(#riso)">
+        <path d="M64 4 h72 v192 h-72 Z" fill="url(#band)"/>
+        <circle cx="100" cy="78" r="46" fill="url(#orb)"/><circle cx="100" cy="78" r="46" fill="url(#halo)"/>
+      </g></svg>
+      <h2>Stripe</h2><p>A vertical band fading from peach into teal, with the orb hovering in the upper half. Echoes the bands in the print.</p>
+      <div class="lockup"><svg viewBox="0 0 200 200"><path d="M64 4 h72 v192 h-72 Z" fill="url(#band)"/><circle cx="100" cy="78" r="46" fill="url(#orb)"/></svg>qualiaheads
+        <svg class="tiny" viewBox="0 0 200 200"><path d="M64 4 h72 v192 h-72 Z" fill="url(#band)"/><circle cx="100" cy="78" r="46" fill="url(#orb)"/></svg></div>
+    </div>
+
+    <!-- 10. Bowler Q (from the whiteboard: the Q with a hat) -->
+    <div class="card">
+      <svg class="big" viewBox="0 0 200 200"><g filter="url(#riso)">
+        <path d="M137 153 l28 28" stroke="url(#head)" stroke-width="20" stroke-linecap="round"/>
+        <circle cx="100" cy="116" r="52" fill="url(#orb)"/><circle cx="100" cy="116" r="52" fill="url(#halo)"/>
+        <path d="M56 68 a44 44 0 0 1 88 0 Z" fill="url(#head)"/>
+        <rect x="36" y="62" width="128" height="16" rx="8" fill="url(#head)"/>
+      </g></svg>
+      <h2>Bowler Q</h2><p>Straight from the whiteboard: the Q with a hat on. The orb is the bowl, the tail makes it a Q, and the hat makes it a head.</p>
+      <div class="lockup"><svg viewBox="0 0 200 200"><path d="M137 153 l28 28" stroke="url(#head)" stroke-width="20" stroke-linecap="round"/><circle cx="100" cy="116" r="52" fill="url(#orb)"/><path d="M56 68 a44 44 0 0 1 88 0 Z" fill="url(#head)"/><rect x="36" y="62" width="128" height="16" rx="8" fill="url(#head)"/></svg>qualiaheads
+        <svg class="tiny" viewBox="0 0 200 200"><path d="M137 153 l28 28" stroke="url(#head)" stroke-width="20" stroke-linecap="round"/><circle cx="100" cy="116" r="52" fill="url(#orb)"/><path d="M56 68 a44 44 0 0 1 88 0 Z" fill="url(#head)"/><rect x="36" y="62" width="128" height="16" rx="8" fill="url(#head)"/></svg></div>
+    </div>
+
+    <!-- 11. Sailor (Qualia crew) -->
+    <div class="card">
+      <svg class="big" viewBox="0 0 200 200"><g filter="url(#riso)">
+        <circle cx="100" cy="132" r="50" fill="url(#orb)"/><circle cx="100" cy="132" r="50" fill="url(#halo)"/>
+        <path d="M58 62 a42 20 0 0 1 84 0 Z" fill="url(#head2)"/>
+        <path d="M46 68 a6 6 0 0 1 6 -6 h96 a6 6 0 0 1 6 6 l-9 30 Q 100 112 55 98 Z" fill="url(#head)"/>
+      </g></svg>
+      <h2>Sailor</h2><p>For the Qualia crew. A little sailor cap with an upturned brim, sitting on the orb. The most playful of the set.</p>
+      <div class="lockup"><svg viewBox="0 0 200 200"><circle cx="100" cy="132" r="50" fill="url(#orb)"/><path d="M58 62 a42 20 0 0 1 84 0 Z" fill="url(#head2)"/><path d="M46 68 a6 6 0 0 1 6 -6 h96 a6 6 0 0 1 6 6 l-9 30 Q 100 112 55 98 Z" fill="url(#head)"/></svg>qualiaheads
+        <svg class="tiny" viewBox="0 0 200 200"><circle cx="100" cy="132" r="50" fill="url(#orb)"/><path d="M58 62 a42 20 0 0 1 84 0 Z" fill="url(#head2)"/><path d="M46 68 a6 6 0 0 1 6 -6 h96 a6 6 0 0 1 6 6 l-9 30 Q 100 112 55 98 Z" fill="url(#head)"/></svg></div>
+    </div>
+
+    <!-- 12. Cap -->
+    <div class="card">
+      <svg class="big" viewBox="0 0 200 200"><g filter="url(#riso)">
+        <circle cx="100" cy="126" r="50" fill="url(#orb)"/><circle cx="100" cy="126" r="50" fill="url(#halo)"/>
+        <path d="M54 86 a46 46 0 0 1 92 0 Z" fill="url(#head)"/>
+        <path d="M98 78 h74 a9 9 0 0 1 0 18 H98 Z" fill="url(#head)"/>
+      </g></svg>
+      <h2>Cap</h2><p>The arch shrunk into a cap and put on the orb. Keeps the arch from the current mark, but now it is clearly a head wearing something.</p>
+      <div class="lockup"><svg viewBox="0 0 200 200"><circle cx="100" cy="126" r="50" fill="url(#orb)"/><path d="M54 86 a46 46 0 0 1 92 0 Z" fill="url(#head)"/><path d="M98 78 h74 a9 9 0 0 1 0 18 H98 Z" fill="url(#head)"/></svg>qualiaheads
+        <svg class="tiny" viewBox="0 0 200 200"><circle cx="100" cy="126" r="50" fill="url(#orb)"/><path d="M54 86 a46 46 0 0 1 92 0 Z" fill="url(#head)"/><path d="M98 78 h74 a9 9 0 0 1 0 18 H98 Z" fill="url(#head)"/></svg></div>
+    </div>
+
+    <!-- Person, tall -->
+    <div class="card">
+      <svg class="big" viewBox="0 0 200 200"><g filter="url(#riso)">
+        <path d="M60 196 V128 a40 40 0 0 1 80 0 V196 Z" fill="url(#head)"/>
+        <circle cx="100" cy="52" r="38" fill="url(#orb)"/><circle cx="100" cy="52" r="38" fill="url(#halo)"/>
+      </g></svg>
+      <h2>Person, tall</h2><p>Your suggestion: a thin arch as the body with the orb as the head. Reads as a person icon, but it is a tall mark.</p>
+      <div class="lockup"><svg viewBox="0 0 200 200"><path d="M60 196 V128 a40 40 0 0 1 80 0 V196 Z" fill="url(#head)"/><circle cx="100" cy="52" r="38" fill="url(#orb)"/></svg>qualiaheads
+        <svg class="tiny" viewBox="0 0 200 200"><path d="M60 196 V128 a40 40 0 0 1 80 0 V196 Z" fill="url(#head)"/><circle cx="100" cy="52" r="38" fill="url(#orb)"/></svg></div>
+    </div>
+
+    <!-- Person, shoulders -->
+    <div class="card">
+      <svg class="big" viewBox="0 0 200 200"><g filter="url(#riso)">
+        <path d="M14 196 V168 a86 62 0 0 1 172 0 V196 Z" fill="url(#head)"/>
+        <circle cx="100" cy="66" r="42" fill="url(#orb)"/><circle cx="100" cy="66" r="42" fill="url(#halo)"/>
+      </g></svg>
+      <h2>Person, shoulders</h2><p>Same idea with a wide, low arch for the shoulders. Squat, avatar-like, and it fits a square much better.</p>
+      <div class="lockup"><svg viewBox="0 0 200 200"><path d="M14 196 V168 a86 62 0 0 1 172 0 V196 Z" fill="url(#head)"/><circle cx="100" cy="66" r="42" fill="url(#orb)"/></svg>qualiaheads
+        <svg class="tiny" viewBox="0 0 200 200"><path d="M14 196 V168 a86 62 0 0 1 172 0 V196 Z" fill="url(#head)"/><circle cx="100" cy="66" r="42" fill="url(#orb)"/></svg></div>
+    </div>
+
+    <!-- Person, tucked -->
+    <div class="card">
+      <svg class="big" viewBox="0 0 200 200"><g filter="url(#riso)">
+        <path d="M36 196 V132 a64 64 0 0 1 128 0 V196 Z" fill="url(#head)"/>
+        <circle cx="100" cy="72" r="42" fill="url(#orb)"/><circle cx="100" cy="72" r="42" fill="url(#halo)"/>
+      </g></svg>
+      <h2>Person, tucked</h2><p>A medium arch with the head sunk into the crest, like a neck. Keeps the person reading and trims the height.</p>
+      <div class="lockup"><svg viewBox="0 0 200 200"><path d="M36 196 V132 a64 64 0 0 1 128 0 V196 Z" fill="url(#head)"/><circle cx="100" cy="72" r="42" fill="url(#orb)"/></svg>qualiaheads
+        <svg class="tiny" viewBox="0 0 200 200"><path d="M36 196 V132 a64 64 0 0 1 128 0 V196 Z" fill="url(#head)"/><circle cx="100" cy="72" r="42" fill="url(#orb)"/></svg></div>
+    </div>
+
+  </div>
+  <div class="grain" aria-hidden="true"></div>
+</body>
+</html>

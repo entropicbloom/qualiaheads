@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>qualiaheads — a reading group on consciousness</title>
+  <meta name="description" content="qualiaheads is a reading and discussion group on theories of consciousness, philosophy of mind, phenomenology, and whether machines could ever have any of it." />
+  <meta property="og:title" content="qualiaheads" />
+  <meta property="og:description" content="A reading and discussion group on consciousness science and philosophy of mind." />
+  <meta property="og:url" content="https://qualiaheads.org" />
+  <meta name="theme-color" content="#e3f2e2" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --mint: #e3f2e2;
+      --mint-deep: #cfe7d2;
+      --peach: #f6b27c;
+      --orange: #ef8a5c;
+      --sun: #f5d67f;
+      --teal: #5fb9ab;
+      --aqua: #93d4c7;
+      --magenta: #c9548f;
+      --ink: #3d4f46;
+      --ink-soft: #6a7b71;
+
+      --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+      --font-sans: "Quicksand", "Avenir Next", "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; overflow-x: hidden; }
+    body {
+      margin: 0;
+      background: var(--mint);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-weight: 500;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--magenta); outline-offset: 4px; border-radius: 999px; }
+
+    /* ---------- atmosphere ---------- */
+    .wash {
+      position: fixed; inset: -20vmax; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(38vmax 34vmax at 22% 28%, rgba(246,178,124,.55), transparent 65%),
+        radial-gradient(42vmax 38vmax at 80% 72%, rgba(95,185,171,.42), transparent 65%),
+        radial-gradient(26vmax 26vmax at 70% 18%, rgba(245,214,127,.38), transparent 65%),
+        radial-gradient(22vmax 22vmax at 25% 80%, rgba(201,84,143,.16), transparent 65%);
+      filter: blur(28px);
+      animation: drift 46s ease-in-out infinite alternate;
+    }
+    @keyframes drift {
+      0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+      50%  { transform: translate(-3vmax, 2vmax) rotate(3deg) scale(1.04); }
+      100% { transform: translate(2vmax, -2vmax) rotate(-2deg) scale(1.02); }
+    }
+
+    .grain {
+      position: fixed; inset: 0; z-index: 3; pointer-events: none;
+      opacity: .42; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.25  0 0 0 0 0.32  0 0 0 0 0.28  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      background-size: 220px 220px;
+    }
+
+    /* ---------- layout ---------- */
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 100svh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: clamp(18px, 3vw, 34px) clamp(20px, 5vw, 64px);
+    }
+
+    header {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      font-weight: 600; letter-spacing: .01em;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-size: 1.05rem; }
+    .brand svg { width: 28px; height: 28px; }
+
+
+    main {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+      align-items: center;
+      column-gap: clamp(24px, 6vw, 96px);
+      padding: 6vh 0 6vh clamp(0px, 3vw, 48px);
+    }
+    .stack { position: relative; z-index: 2; max-width: 36rem; text-align: left; }
+
+    .figure { display: grid; justify-items: center; align-items: center; }
+    .scene { width: 100%; max-width: 640px; height: auto; display: block; margin-top: -2vh; overflow: visible; }
+
+    h1 {
+      font-family: var(--font-display);
+      font-variation-settings: "opsz" 120, "SOFT" 100, "WONK" 1;
+      font-weight: 400;
+      font-size: clamp(2.6rem, 8vw, 5.6rem);
+      line-height: .98; letter-spacing: -.015em;
+      margin: 0 0 .55em;
+      text-wrap: balance;
+    }
+    h1 em {
+      font-style: italic;
+      background: linear-gradient(95deg, var(--orange) 0%, var(--magenta) 55%, var(--teal) 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      /* background-clip:text only paints inside the box, so give the italic overhang room */
+      padding: 0 .2em 0 .08em; margin: 0 -.2em 0 -.08em;
+      -webkit-box-decoration-break: clone; box-decoration-break: clone; /* each wrapped line gets the padding */
+    }
+
+    .meetup {
+      display: inline-block; min-width: 15rem;
+      padding: 16px 22px 14px; border-radius: 22px;
+      background: rgba(255,255,255,.42);
+      border: 1px solid rgba(61,79,70,.14);
+      backdrop-filter: blur(8px);
+      text-align: left;
+    }
+    .meetup .label {
+      display: block; font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .meetup strong {
+      display: block; font-family: var(--font-display); font-variation-settings: "opsz" 48, "SOFT" 100, "WONK" 1;
+      font-weight: 500; font-size: 2rem; line-height: 1.1; margin: 2px 0 10px;
+    }
+    .meetup .slots {
+      display: flex; gap: 8px; padding-top: 10px;
+      border-top: 1px dashed rgba(61,79,70,.28);
+      font-size: .74rem; letter-spacing: .04em; color: var(--ink-soft); opacity: .7;
+    }
+    .meetup .slots span { flex: 1; padding-bottom: 6px; border-bottom: 1px dashed rgba(61,79,70,.28); }
+
+
+
+
+
+    .origin {
+      font-size: .8rem; color: var(--ink-soft); letter-spacing: .02em;
+    }
+    .origin span { text-transform: uppercase; letter-spacing: .1em; font-size: .7rem; font-weight: 700; margin-right: .6em; }
+
+    /* ---------- entrance ---------- */
+    .rise { opacity: 0; transform: translateY(14px); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.8,.2,1); }
+    .loaded .rise { opacity: 1; transform: none; }
+    .loaded .figure.rise { transition-delay: .05s; }
+    .loaded .stack .rise:nth-child(1) { transition-delay: .2s; }
+    .loaded .stack .rise:nth-child(2) { transition-delay: .35s; }
+    .loaded .stack .rise:nth-child(3) { transition-delay: .5s; }
+
+    /* ---------- scene motion ---------- */
+    .scene .orb-group { transform-origin: 100px 96px; transform-box: fill-box; animation: breathe 7s ease-in-out infinite; }
+    @keyframes breathe {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50%      { transform: translateY(-4px) scale(1.035); }
+    }
+    .float-a { animation: bob-a 8s ease-in-out infinite; }
+    .float-b { animation: bob-b 11s ease-in-out -4s infinite; }
+    .float-c { animation: bob-c 14s ease-in-out -9s infinite; }
+    .float-d { animation: bob-b 9.5s ease-in-out -2s infinite reverse; }
+    @keyframes bob-a {
+      0%, 100% { translate: 0 0; }
+      50%      { translate: -12px -22px; }
+    }
+    @keyframes bob-b {
+      0%, 100% { translate: 0 0; }
+      50%      { translate: 14px -18px; }
+    }
+    @keyframes bob-c {
+      0%, 100% { translate: 0 0; }
+      50%      { translate: -8px -16px; }
+    }
+    .drift-slow { animation: drift-band 24s ease-in-out infinite alternate; }
+    @keyframes drift-band {
+      from { translate: 0 0; }
+      to   { translate: -18px 24px; }
+    }
+
+    @media (max-width: 820px) {
+      main { grid-template-columns: minmax(0, 1fr); row-gap: 4vh; padding: 4vh 0; align-content: center; }
+      .figure { order: -1; justify-items: start; }
+      .scene { width: clamp(260px, 84vw, 380px); margin-top: 0; }
+      .stack { max-width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .wash, .scene * { animation: none !important; }
+      .rise { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wash" aria-hidden="true"></div>
+
+  <div class="hero">
+    <header>
+      <a class="brand" href="/" aria-label="qualiaheads home">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <defs>
+            <linearGradient id="hg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f6b27c"/><stop offset="1" stop-color="#ef8a5c"/>
+            </linearGradient>
+            <linearGradient id="og" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f5d67f"/><stop offset=".4" stop-color="#93d4c7"/>
+              <stop offset=".75" stop-color="#5fb9ab"/><stop offset="1" stop-color="#c9548f"/>
+            </linearGradient>
+          </defs>
+          <path d="M22 196 V100 a78 78 0 0 1 156 0 V196 Z" fill="url(#hg)"/>
+          <circle cx="100" cy="96" r="46" fill="url(#og)"/>
+        </svg>
+        <span>qualiaheads</span>
+      </a>
+
+    </header>
+
+    <main>
+      <div class="stack">
+
+        <h1 class="rise">Something <em>it is like.</em></h1>
+
+
+        <section class="meetup rise" id="meetup" aria-labelledby="meetup-label">
+          <span class="label" id="meetup-label">Next meet-up</span>
+          <strong>TBD</strong>
+          <span class="slots" aria-hidden="true"><span>when</span><span>where</span><span>what</span></span>
+        </section>
+      </div>
+
+      <div class="figure rise">
+        <svg class="scene" viewBox="0 0 640 560" role="img" aria-label="qualiaheads mark among gradient bands and orbs">
+          <defs>
+            <linearGradient id="head" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f6b27c"/><stop offset="1" stop-color="#ef8a5c"/>
+            </linearGradient>
+            <linearGradient id="orb" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f5d67f"/><stop offset=".38" stop-color="#93d4c7"/>
+              <stop offset=".72" stop-color="#5fb9ab"/><stop offset="1" stop-color="#c9548f"/>
+            </linearGradient>
+            <linearGradient id="band1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f5d67f"/><stop offset=".35" stop-color="#f6b27c"/>
+              <stop offset=".62" stop-color="#ef8a5c"/><stop offset="1" stop-color="#5fb9ab"/>
+            </linearGradient>
+            <linearGradient id="band2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#93d4c7"/><stop offset=".5" stop-color="#f6b27c"/><stop offset="1" stop-color="#c9548f"/>
+            </linearGradient>
+            <radialGradient id="halo" cx=".5" cy=".5" r=".5">
+              <stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".35"/>
+            </radialGradient>
+            <filter id="riso" x="-10%" y="-10%" width="120%" height="120%">
+              <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="7" result="noise"/>
+              <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .22 0" result="grain"/>
+              <feComposite in="grain" in2="SourceGraphic" operator="in" result="clipped"/>
+              <feBlend in="SourceGraphic" in2="clipped" mode="multiply"/>
+            </filter>
+          </defs>
+
+          <g filter="url(#riso)">
+            <!-- bands, far layer -->
+            <g>
+              <g class="drift-slow" transform="rotate(-16 320 280)">
+                <rect x="250" y="-120" width="150" height="800" fill="url(#band1)"/>
+                <rect x="416" y="-120" width="64" height="800" fill="url(#band2)" opacity=".85"/>
+              </g>
+            </g>
+
+            <!-- dome on the horizon -->
+            <g>
+              <g class="float-c">
+                <circle cx="562" cy="474" r="30" fill="url(#orb)"/>
+                <path d="M482 536 a80 80 0 0 1 160 0 Z" fill="url(#head)"/>
+              </g>
+            </g>
+
+            <!-- the mark -->
+            <g>
+              <g transform="translate(92 168) scale(1.22)">
+                <path d="M22 196 V100 a78 78 0 0 1 156 0 V196 Z" fill="url(#head)"/>
+                <g class="orb-group">
+                  <circle cx="100" cy="96" r="46" fill="url(#orb)"/>
+                  <circle cx="100" cy="96" r="46" fill="url(#halo)"/>
+                </g>
+              </g>
+            </g>
+
+            <!-- lens eye, near layer -->
+            <g>
+              <g class="float-a" transform="rotate(-10 540 104)">
+                <path d="M472 104 C 496 64, 584 64, 608 104 C 584 144, 496 144, 472 104 Z" fill="url(#head)"/>
+                <circle cx="540" cy="104" r="26" fill="url(#orb)"/>
+                <circle cx="540" cy="104" r="26" fill="url(#halo)"/>
+              </g>
+            </g>
+
+            <!-- loose orb -->
+            <g>
+              <g class="float-b">
+                <circle cx="52" cy="468" r="28" fill="url(#orb)"/>
+                <circle cx="52" cy="468" r="28" fill="url(#halo)"/>
+              </g>
+            </g>
+
+            <!-- small orb, top left -->
+            <g>
+              <g class="float-d">
+                <circle cx="96" cy="92" r="18" fill="url(#orb)"/>
+                <circle cx="96" cy="92" r="18" fill="url(#halo)"/>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </main>
+
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <script>
+    // Entrance
+    requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add('loaded')));
+
+  </script>
+</body>
+</html>
