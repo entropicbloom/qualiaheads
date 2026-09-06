@@ -307,13 +307,13 @@
         return;
       }
 
-      // Blink scheduler: every eye on its own irregular clock, 6 to 16 s apart,
+      // Blink scheduler: every eye on its own irregular clock, 10 to 26 s apart,
       // occasionally a quick double blink.
       function rand(a, b) { return a + Math.random() * (b - a); }
 
       function schedule(eye, first) {
-        var wait = first ? rand(2500, 12000) : rand(6000, 16000);
-        setTimeout(function () { blink(eye, Math.random() < 0.15); }, wait);
+        var wait = first ? rand(4000, 18000) : rand(10000, 26000);
+        setTimeout(function () { blink(eye, Math.random() < 0.12); }, wait);
       }
 
       function blink(eye, twice) {
