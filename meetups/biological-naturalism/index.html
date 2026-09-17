@@ -285,7 +285,7 @@
         <span class="node" aria-hidden="true"></span>
         <div class="card">
           <article class="tweet shot">
-            <a class="img" href="https://x.com/dwarkesh_sp/status/2093833419377815719"><img src="img/dwarkesh.png" alt="" loading="lazy"></a>
+            <a class="img" href="https://x.com/dwarkesh_sp/status/2093833419377815719"><img src="img/dwarkesh.png" alt="" width="1212" height="776"></a>
             <div class="meta"><span>29 Aug 2026</span><a href="https://x.com/dwarkesh_sp/status/2093833419377815719">open on X ↗</a></div>
           </article>
         </div>
@@ -303,7 +303,7 @@
         <span class="node" aria-hidden="true"></span>
         <div class="card">
           <article class="tweet shot">
-            <a class="img" href="https://x.com/anilkseth/status/2094077038898373112"><img src="img/seth.png" alt="" loading="lazy"></a>
+            <a class="img" href="https://x.com/anilkseth/status/2094077038898373112"><img src="img/seth.png" alt="" width="1174" height="678"></a>
             <p class="after">Remember. AI agents are software programs. They are not conscious living entities. If we don’t keep this clearly in mind, we’re really going to struggle to navigate what’s coming.</p>
             <div class="meta"><span>30 Aug 2026</span><a href="https://x.com/anilkseth/status/2094077038898373112">open on X ↗</a></div>
           </article>
@@ -324,7 +324,7 @@
         <span class="node" aria-hidden="true"></span>
         <div class="card">
           <article class="tweet shot">
-            <a class="img" href="https://x.com/mustafasuleyman/status/2099488602418028917"><img src="img/suleyman-code.jpg" alt="" loading="lazy"></a>
+            <a class="img" href="https://x.com/mustafasuleyman/status/2099488602418028917"><img src="img/suleyman-code.jpg" alt="" width="1198" height="932"></a>
             <div class="meta"><span>14 Sep 2026 · X article</span><a href="https://x.com/mustafasuleyman/status/2099488602418028917">open on X ↗</a></div>
           </article>
         </div>
@@ -344,7 +344,7 @@
         <span class="node" aria-hidden="true"></span>
         <div class="card">
           <article class="tweet shot">
-            <a class="img" href="https://x.com/mustafasuleyman/status/2100223594534150428"><img src="img/suleyman-welfare.jpg" alt="" loading="lazy"></a>
+            <a class="img" href="https://x.com/mustafasuleyman/status/2100223594534150428"><img src="img/suleyman-welfare.jpg" alt="" width="1186" height="860"></a>
             <div class="meta"><span>16 Sep 2026 · X article</span><a href="https://x.com/mustafasuleyman/status/2100223594534150428">open on X ↗</a></div>
           </article>
         </div>
@@ -446,6 +446,10 @@
       window.addEventListener('resize', schedule);
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
       window.addEventListener('load', schedule);
+      // anything that changes the timeline's height (images arriving, a quote
+      // opening) moves the cards, so redraw whenever its size changes
+      if ('ResizeObserver' in window) new ResizeObserver(schedule).observe(tl);
+      tl.querySelectorAll('img').forEach(function (im) { im.addEventListener('load', schedule); });
       schedule();
     })();
 
