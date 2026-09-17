@@ -69,7 +69,8 @@
     </nav>
     <h1>Sessions</h1>
     <ol reversed>
-      <li>
+      <!-- data-date: ISO date of the session, or empty while it is still TBD -->
+      <li data-date="">
         <a class="session" href="biological-naturalism/">
           <span class="label">Next meet-up · TBD</span>
           <strong>Biological Naturalism &amp; Artificial Consciousness</strong>
@@ -78,5 +79,19 @@
     </ol>
   </div>
   <div class="grain" aria-hidden="true"></div>
+  <script>
+    // Label each session by its date: upcoming (or undated) ones read
+    // "Next meet-up", past ones just show when they happened.
+    (function () {
+      var today = new Date(); today.setHours(0, 0, 0, 0);
+      var fmt = { day: 'numeric', month: 'short', year: 'numeric' };
+      document.querySelectorAll('li[data-date]').forEach(function (li) {
+        var label = li.querySelector('.label'), iso = li.getAttribute('data-date');
+        if (!iso) { label.textContent = 'Next meet-up · TBD'; return; }
+        var d = new Date(iso + 'T00:00:00'), text = d.toLocaleDateString('en-GB', fmt);
+        label.textContent = d >= today ? 'Next meet-up · ' + text : text;
+      });
+    })();
+  </script>
 </body>
 </html>
