@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sessions · qualiaheads</title>
+  <meta name="theme-color" content="#e3f2e2" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --mint: #e3f2e2; --peach: #f6b27c; --orange: #ef8a5c; --sun: #f5d67f; --teal: #5fb9ab; --aqua: #93d4c7;
+      --magenta: #c9548f; --ink: #3d4f46; --ink-soft: #6a7b71; --line: rgba(61,79,70,.32);
+      --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+      --font-sans: "Quicksand", "Avenir Next", "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100svh; background: var(--mint); color: var(--ink); font-family: var(--font-sans); font-weight: 500; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--magenta); outline-offset: 4px; border-radius: 6px; }
+    .wash {
+      position: fixed; inset: -20vmax; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(40vmax 34vmax at 18% 30%, rgba(246,178,124,.42), transparent 65%),
+        radial-gradient(44vmax 40vmax at 82% 70%, rgba(147,212,199,.50), transparent 65%),
+        radial-gradient(26vmax 26vmax at 72% 14%, rgba(245,214,127,.34), transparent 65%),
+        radial-gradient(24vmax 24vmax at 30% 86%, rgba(201,84,143,.12), transparent 65%);
+      filter: blur(30px);
+    }
+    .grain {
+      position: fixed; inset: 0; z-index: 5; pointer-events: none; opacity: .42; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.25  0 0 0 0 0.32  0 0 0 0 0.28  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      background-size: 220px 220px;
+    }
+    .page { position: relative; z-index: 2; max-width: 74rem; margin: 0 auto; padding: 0 clamp(16px, 5vw, 56px) 6rem; }
+    .top { display: flex; justify-content: space-between; align-items: baseline; padding: 28px 0 0; font-size: .8rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+    .top a { text-decoration: none; }
+    .top a:hover { color: var(--magenta); }
+    h1 {
+      font-family: var(--font-display); font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+      font-weight: 400; font-size: clamp(2.4rem, 5.6vw, 4.8rem); line-height: 1; letter-spacing: -.02em;
+      margin: clamp(3rem, 10vh, 7rem) 0 clamp(2rem, 6vh, 4rem) -.03em;
+    }
+    ol { list-style: none; margin: 0; padding: 0; max-width: 40rem; }
+    li + li { margin-top: 12px; }
+    .session {
+      display: block; padding: 16px 22px 16px 20px; border-radius: 20px;
+      background: rgba(255,255,255,.40); border: 1px solid rgba(61,79,70,.14);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.35);
+      text-decoration: none; transition: background .25s, transform .25s;
+    }
+    .session:hover { background: rgba(255,255,255,.62); transform: translateY(-1px); }
+    .session .label { display: block; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+    .session strong {
+      display: inline-block; margin-top: 4px; padding-bottom: 6px;
+      font-family: var(--font-display); font-variation-settings: "opsz" 48, "SOFT" 100, "WONK" 1;
+      font-weight: 500; font-size: 1.5rem; line-height: 1.12;
+      border-bottom: 1.5px dashed var(--line);
+    }
+    .session:hover strong { border-bottom-color: var(--magenta); }
+  </style>
+</head>
+<body>
+  <div class="wash" aria-hidden="true"></div>
+  <div class="page">
+    <nav class="top">
+      <a href="../">qualiaheads</a>
+      <span>sessions</span>
+    </nav>
+    <h1>Sessions</h1>
+    <ol reversed>
+      <li>
+        <a class="session" href="biological-naturalism/">
+          <span class="label">Next meet-up · TBD</span>
+          <strong>Biological Naturalism &amp; Artificial Consciousness</strong>
+        </a>
+      </li>
+    </ol>
+  </div>
+  <div class="grain" aria-hidden="true"></div>
+</body>
+</html>

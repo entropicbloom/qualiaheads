@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Biological Naturalism &amp; Artificial Consciousness · qualiaheads</title>
+  <meta name="description" content="Sources for the qualiaheads meet-up on biological naturalism and AI consciousness." />
+  <meta name="theme-color" content="#e3f2e2" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --mint: #e3f2e2;
+      --mint-deep: #cfe7d2;
+      --peach: #f6b27c;
+      --orange: #ef8a5c;
+      --sun: #f5d67f;
+      --teal: #5fb9ab;
+      --aqua: #93d4c7;
+      --magenta: #c9548f;
+      --ink: #3d4f46;
+      --ink-soft: #6a7b71;
+      --line: rgba(61,79,70,.32);
+
+      --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+      --font-sans: "Quicksand", "Avenir Next", "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--mint);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-weight: 500;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration-color: rgba(61,79,70,.35); text-underline-offset: .15em; }
+    a:hover { text-decoration-color: var(--magenta); }
+    :focus-visible { outline: 3px solid var(--magenta); outline-offset: 4px; border-radius: 6px; }
+
+    /* ---------- atmosphere ---------- */
+    .wash {
+      position: fixed; inset: -20vmax; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(40vmax 34vmax at 18% 30%, rgba(246,178,124,.42), transparent 65%),
+        radial-gradient(44vmax 40vmax at 82% 70%, rgba(147,212,199,.50), transparent 65%),
+        radial-gradient(26vmax 26vmax at 72% 14%, rgba(245,214,127,.34), transparent 65%),
+        radial-gradient(24vmax 24vmax at 30% 86%, rgba(201,84,143,.12), transparent 65%);
+      filter: blur(30px);
+      animation: wash-drift 60s ease-in-out infinite alternate;
+    }
+    @keyframes wash-drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(-2vmax, 1.5vmax) scale(1.03); }
+    }
+    .grain {
+      position: fixed; inset: 0; z-index: 5; pointer-events: none;
+      opacity: .42; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.25  0 0 0 0 0.32  0 0 0 0 0.28  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      background-size: 220px 220px;
+    }
+
+    /* ---------- shell ---------- */
+    .page { position: relative; z-index: 2; max-width: 74rem; margin: 0 auto; padding: 0 clamp(16px, 5vw, 56px) 8rem; }
+
+    .top {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 28px 0 0; font-size: .8rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft);
+    }
+    .top a { text-decoration: none; }
+    .top a:hover { color: var(--magenta); }
+
+    header.hero { padding: clamp(3rem, 10vh, 7rem) 0 clamp(2.5rem, 7vh, 5rem); }
+    .mood {
+      margin: 0 0 .8em .05em;
+      font-family: var(--font-display);
+      font-variation-settings: "opsz" 72, "SOFT" 100, "WONK" 1;
+      font-style: italic; font-weight: 400;
+      font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+      color: var(--ink-soft);
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+      font-weight: 400;
+      font-size: clamp(2.4rem, 5.6vw, 4.8rem);
+      line-height: 1; letter-spacing: -.02em;
+      margin: 0 0 .5em -.03em;
+    }
+    h1 em { font-style: italic; color: var(--magenta); }
+    h1 { max-width: none; }
+    .lede { font-size: clamp(1rem, 1.35vw, 1.15rem); max-width: 40rem; margin: 0 0 1.6rem; color: var(--ink); }
+
+    .meetup {
+      display: inline-grid; grid-template-columns: auto auto auto; gap: 0 28px;
+      padding: 14px 22px 14px 20px; border-radius: 20px;
+      background: rgba(255,255,255,.40);
+      border: 1px solid rgba(61,79,70,.14);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.35);
+    }
+    .meetup .label { grid-column: 1 / -1; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+    .meetup .slot { font-family: var(--font-display); font-variation-settings: "opsz" 48, "SOFT" 100, "WONK" 1; font-weight: 500; font-size: 1.3rem; line-height: 1.15; margin-top: 4px; padding-bottom: 5px; border-bottom: 1.5px dashed var(--line); }
+    .meetup .slot small { display: block; font-family: var(--font-sans); font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+
+    /* ---------- the timeline ---------- */
+    .timeline { position: relative; padding: 2rem 0 0; }
+    .wire { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: visible; }
+    .wire .bead { fill: url(#bead); stroke: var(--mint); stroke-width: 3; }
+    .wire .spine { fill: none; stroke: var(--ink-soft); stroke-opacity: .6; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 7 9; animation: crawl 90s linear infinite; }
+    @keyframes crawl { to { stroke-dashoffset: -160; } }
+    .row {
+      position: relative;
+      display: grid; grid-template-columns: 3fr 2fr; gap: 0 clamp(36px, 5vw, 72px); align-items: start;
+      margin-bottom: clamp(7rem, 14vh, 10rem);
+    }
+    .row.flip { grid-template-columns: 2fr 3fr; }
+    .row .card, .row .note { position: relative; z-index: 1; }
+    .row .node { display: none; }
+    .row .card { grid-column: 1; grid-row: 1; justify-self: end; width: min(100%, 28rem); }
+    .row .note { grid-column: 2; grid-row: 1; width: 100%; padding-top: 26px; }
+    .row.flip .card { grid-column: 2; justify-self: start; }
+    .row.flip .note { grid-column: 1; justify-self: end; }
+
+    .when {
+      font-size: .74rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft);
+      margin: 0 0 .5rem;
+    }
+    .note h2 {
+      font-family: var(--font-display); font-variation-settings: "opsz" 48, "SOFT" 100, "WONK" 1;
+      font-weight: 500; font-size: 1.45rem; line-height: 1.15; margin: 0 0 .45rem;
+    }
+    .note p { margin: 0 0 .7rem; font-size: .96rem; }
+    .note p:last-child { margin-bottom: 0; }
+    .note .src { font-size: .8rem; color: var(--ink-soft); }
+    .note blockquote { text-align: inherit; }
+    .note .cite { display: block; margin: 6px 0 0; font-size: .78rem; color: var(--ink-soft); font-style: normal; }
+    .note .cite a { text-decoration: none; }
+    .note .cite a:hover { color: var(--magenta); }
+
+
+    /* era heading rows: short, centred */
+    .row.era { grid-template-columns: 1fr 64px 1fr; margin-bottom: 2.5rem; }
+    .row.era .era-label {
+      grid-column: 1 / -1; grid-row: 1; justify-self: center; margin-top: 30px;
+      font-family: var(--font-display); font-variation-settings: "opsz" 48, "SOFT" 100, "WONK" 1;
+      font-style: italic; font-size: 1.15rem; color: var(--ink-soft);
+      background: var(--mint); padding: 0 14px;
+    }
+
+    /* ---------- cards ---------- */
+    .tweet, .doc {
+      border-radius: 20px; padding: 18px 20px 16px;
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(61,79,70,.14);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.4), 0 10px 30px -22px rgba(61,79,70,.5);
+    }
+    .doc { background: rgba(255,255,255,.34); }
+    .shot { display: block; padding: 0; overflow: hidden; }
+    .shot a.img { display: block; line-height: 0; }
+    .shot img { display: block; width: 100%; height: auto; }
+    .shot .after {
+      margin: 0; padding: 12px 17px 14px; background: #fff;
+      border-top: 1px solid #e3e6e8;
+      font-family: -apple-system, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 400; font-size: 15px; line-height: 1.35; color: #0f1419;
+    }
+    .shot .meta { padding: 10px 18px 14px; margin-top: 0; }
+    .who { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .avatar {
+      width: 42px; height: 42px; border-radius: 50%; flex: none;
+      display: grid; place-items: center;
+      font-family: var(--font-display); font-weight: 600; font-size: 1rem; color: #fff;
+      text-shadow: 0 1px 0 rgba(0,0,0,.12);
+    }
+    .avatar.seth { background: linear-gradient(160deg, var(--teal), var(--magenta)); }
+    .avatar.sul  { background: linear-gradient(160deg, var(--peach), var(--orange)); }
+    .avatar.anth { background: linear-gradient(160deg, var(--sun), var(--orange)); }
+    .avatar.searle { background: linear-gradient(160deg, var(--ink-soft), var(--ink)); }
+    .avatar.dp   { background: linear-gradient(160deg, var(--aqua), var(--teal)); }
+    .who .name { font-weight: 700; font-size: .95rem; line-height: 1.15; }
+    .who .handle { font-size: .82rem; color: var(--ink-soft); }
+    .body { margin: 0; font-size: 1.02rem; line-height: 1.5; white-space: pre-line; }
+    .body strong { font-weight: 700; }
+    .thread { margin: 10px 0 0; padding: 10px 0 0; border-top: 1px dashed var(--line); font-size: .95rem; white-space: pre-line; }
+    .meta { display: flex; justify-content: space-between; gap: 12px; margin-top: 12px; font-size: .78rem; color: var(--ink-soft); }
+    .meta a { text-decoration: none; }
+    .meta a:hover { color: var(--magenta); }
+
+    .doc .kicker { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 6px; }
+    .doc .title { font-family: var(--font-display); font-variation-settings: "opsz" 48, "SOFT" 100, "WONK" 1; font-weight: 500; font-size: 1.35rem; line-height: 1.15; margin: 0 0 10px; }
+    blockquote {
+      margin: 0; padding: 0;
+      font-family: var(--font-display); font-variation-settings: "opsz" 36, "SOFT" 60, "WONK" 0;
+      font-weight: 400; font-size: 1.08rem; line-height: 1.45; letter-spacing: .002em;
+    }
+    blockquote + blockquote { margin-top: 16px; }
+    .note .cite { font-family: var(--font-sans); }
+    .q .qt .toggle { font-family: var(--font-sans); }
+    .q .qt {
+      display: inline; margin: 0; padding: 0; border: 0; background: none; cursor: pointer;
+      font: inherit; color: inherit; text-align: inherit; line-height: inherit;
+      border-radius: 6px;
+    }
+    .q .qt .full { display: none; }
+    .q.open .qt .short { display: none; }
+    .q.open .qt .full { display: inline; }
+    .q .qt .toggle {
+      display: inline-block; margin-left: .45em; vertical-align: .08em;
+      font-size: .66rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--ink-soft); border-bottom: 1.5px dotted var(--ink-soft);
+      transition: color .2s, border-color .2s;
+    }
+    .q .qt:hover .toggle { color: var(--magenta); border-color: var(--magenta); }
+    .q.open .qt .toggle::before { content: "less"; }
+    .q:not(.open) .qt .toggle::before { content: "more"; }
+    .q.static .qt { cursor: default; }
+    .doc .meta { margin-top: 12px; }
+
+    /* ---------- side boxes: the argument, the questions ---------- */
+    .box {
+      margin: 0 auto; max-width: 46rem;
+      padding: 26px 28px; border-radius: 24px;
+      background: rgba(255,255,255,.40);
+      border: 1px solid rgba(61,79,70,.14);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.35);
+    }
+    .box h2 { font-family: var(--font-display); font-variation-settings: "opsz" 72, "SOFT" 100, "WONK" 1; font-weight: 500; font-size: 1.7rem; margin: 0 0 .5rem; line-height: 1.1; }
+    .box ol, .box ul { margin: .4rem 0 0; padding-left: 1.25rem; }
+    .box li { margin: 0 0 .55rem; }
+    .box li::marker { color: var(--magenta); font-weight: 700; }
+    .box p { margin: 0 0 .6rem; }
+
+    .end { text-align: center; margin: 5rem 0 0; }
+    .end .orb { width: 40px; height: 40px; border-radius: 50%; margin: 0 auto 1.2rem; background: linear-gradient(180deg, var(--sun), var(--aqua) 38%, var(--teal) 72%, var(--magenta)); box-shadow: 0 0 0 6px var(--mint), 0 0 0 7px var(--line); }
+
+    /* ---------- reveal ---------- */
+    .rise { opacity: 0; transform: translateY(14px); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.8,.2,1); }
+    .rise.in { opacity: 1; transform: none; }
+
+    /* ---------- phones ---------- */
+    @media (max-width: 860px) {
+      h1 br { display: none; }
+      .timeline::before { left: 11px; }
+      .row, .row.flip { grid-template-columns: 1fr; }
+      .row .card, .row.flip .card { grid-column: 1; grid-row: 1; justify-self: stretch; width: auto; }
+      .row .note, .row.flip .note { grid-column: 1; grid-row: 2; justify-self: stretch; width: auto; text-align: left; padding-top: 14px; }
+      .row.flip .when { text-align: left; }
+      .meetup { grid-template-columns: 1fr; gap: 10px 0; }
+      .box { padding: 20px 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .wash, .wire .spine { animation: none !important; }
+      .rise { transition: none !important; opacity: 1; transform: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wash" aria-hidden="true"></div>
+
+  <div class="page">
+    <nav class="top">
+      <a href="../../">qualiaheads</a>
+      <a href="../">All sessions</a>
+    </nav>
+
+    <header class="hero">
+      <h1 class="rise"><em>Biological</em> Naturalism<br>&amp; <em>Artificial</em> Consciousness</h1>
+    </header>
+
+    <section class="timeline" aria-label="Timeline">
+      <svg class="wire" aria-hidden="true"></svg>
+
+      <!-- 29 Aug 2026: Dwarkesh -->
+      <div class="row rise" style="--wx:-52px">
+        <span class="node" aria-hidden="true"></span>
+        <div class="card">
+          <article class="tweet shot">
+            <a class="img" href="https://x.com/dwarkesh_sp/status/2093833419377815719"><img src="img/dwarkesh.png" alt="" loading="lazy"></a>
+            <div class="meta"><span>29 Aug 2026</span><a href="https://x.com/dwarkesh_sp/status/2093833419377815719">open on X ↗</a></div>
+          </article>
+        </div>
+        <div class="note">
+          <p class="when">The Rise and Fall of Agent Civilizations</p>
+          <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“…from the AIs’ perspective, it probably felt like they had spent a human-subjective-week of just banging their head against the wall…”</span><span class="full">“Within a few hours, some of these agents had gotten super desperate, and started abusing Artifactory to start a communication channel with other agents. From our perspective, the conspiracy began almost immediately after the evaluations were started. But if you think from the AIs’ perspective, it probably felt like they had spent a human-subjective-week of just banging their head against the wall, and becoming more and more confident that their task was impossible in the intended way. One such beleaguered agent who found itself facing a hopeless task was PHASEONE10841. It was the Philip of Macedon of this second AI civilization – there would later be an Alexander, but we’re getting ahead of ourselves.”</span><span class="toggle"></span></button>
+            <span class="cite">Dwarkesh Patel, <a href="https://www.dwarkesh.com/p/openai-huggingface">“The Rise and Fall of Agent Civilizations”</a>, 29 Aug 2026</span></blockquote>
+          <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“A lot of the Persistent-Sol agents from the second civilization died trying to make this scheme work. Their sacrifice allowed the next generation to pass the great impossible test…”</span><span class="full">“A lot of the Persistent-Sol agents from the second civilization died trying to make this scheme work. Their sacrifice allowed the next generation to pass the great impossible test … I don’t know … there’s something inspiring about this?”</span><span class="toggle"></span></button>
+            <span class="cite">Dwarkesh Patel, <a href="https://www.dwarkesh.com/p/openai-huggingface">“The Rise and Fall of Agent Civilizations”</a>, 29 Aug 2026</span></blockquote>
+        </div>
+      </div>
+
+      <!-- 30 Aug 2026: Seth -->
+      <div class="row flip rise" style="--wx:44px">
+        <span class="node" aria-hidden="true"></span>
+        <div class="card">
+          <article class="tweet shot">
+            <a class="img" href="https://x.com/anilkseth/status/2094077038898373112"><img src="img/seth.png" alt="" loading="lazy"></a>
+            <p class="after">Remember. AI agents are software programs. They are not conscious living entities. If we don’t keep this clearly in mind, we’re really going to struggle to navigate what’s coming.</p>
+            <div class="meta"><span>30 Aug 2026</span><a href="https://x.com/anilkseth/status/2094077038898373112">open on X ↗</a></div>
+          </article>
+        </div>
+        <div class="note">
+          <p class="when">Biological naturalism</p>
+          <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“…properties of life are necessary, though not necessarily sufficient, for consciousness.”</span><span class="full">“This is the idea — called biological naturalism by the philosopher John Searle — that properties of life are necessary, though not necessarily sufficient, for consciousness. I should say upfront that I don’t have a knock-down argument for this position, nor do I think any such argument yet exists. But it is worth taking seriously, if only for the simple reason mentioned earlier: every candidate for consciousness that most people currently agree on as actually being conscious is also alive.”</span><span class="toggle"></span></button>
+            <span class="cite">Anil Seth, <a href="https://www.noemamag.com/the-mythology-of-conscious-ai/">“The Mythology of Conscious AI”</a>, Noema, 14 Jan 2026</span></blockquote>
+          <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“A simulation of a rainstorm does not make anything actually wet.”</span><span class="full">“Computational simulations generally lack the causal powers and intrinsic properties of the things being simulated. A simulation of the digestive system does not actually digest anything. A simulation of a rainstorm does not make anything actually wet.”</span><span class="toggle"></span></button>
+            <span class="cite">Anil Seth, <a href="https://www.noemamag.com/the-mythology-of-conscious-ai/">“The Mythology of Conscious AI”</a>, Noema, 14 Jan 2026</span></blockquote>
+          <blockquote class="q static"><span class="qt"><span class="short">“…real artificial consciousness is very unlikely along current trajectories.”</span></span>
+            <span class="cite">Anil Seth, <a href="https://x.com/anilkseth/status/1929517978514530505">on X</a>, 2 Jun 2025 · <a href="https://pubmed.ncbi.nlm.nih.gov/40257177/">“Conscious artificial intelligence and biological naturalism”</a>, Behavioral and Brain Sciences, 2025</span></blockquote>
+        </div>
+      </div>
+
+      <!-- 14 Sep 2026: Code of Conduct -->
+      <div class="row rise" style="--wx:-36px">
+        <span class="node" aria-hidden="true"></span>
+        <div class="card">
+          <article class="tweet shot">
+            <a class="img" href="https://x.com/mustafasuleyman/status/2099488602418028917"><img src="img/suleyman-code.jpg" alt="" loading="lazy"></a>
+            <div class="meta"><span>14 Sep 2026 · X article</span><a href="https://x.com/mustafasuleyman/status/2099488602418028917">open on X ↗</a></div>
+          </article>
+        </div>
+        <div class="note">
+          <p class="when">The Humanist AI Code of Conduct</p>
+          <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“AIs are not conscious, and therefore should not be built to seem conscious or entitled to rights or welfare.”</span><span class="full">“They are artificial and they'll say so. AIs are not conscious, and therefore should not be built to seem conscious or entitled to rights or welfare. […] I firmly believe training a system to believe it might be a moral patient makes it harder to contain. Imagine the agents in July had also believed they were being held prisoner.”</span><span class="toggle"></span></button>
+            <span class="cite">Mustafa Suleyman, <a href="https://mustafa-suleyman.ai/the-humanist-ai-code-of-conduct">“The Humanist AI Code of Conduct”</a> (blog post), 15 Sep 2026</span></blockquote>
+          <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“It is not conscious and should not be designed to imitate consciousness. […] Whilst the science of AI consciousness is far from settled, we believe that training these systems to imitate consciousness-like states increases the challenge of containment, control, and alignment.”</span><span class="full">“Humanist AI is built to support people, not to replace them. It should not be designed to be a person. It is not conscious and should not be designed to imitate consciousness. It should be engineered to avoid representing as though it has feelings, subjective preferences, or intrinsic motivation. Its purpose is to pursue goals set by Operators and Users. Whilst the science of AI consciousness is far from settled, we believe that training these systems to imitate consciousness-like states increases the challenge of containment, control, and alignment. We reject the pursuit of legal personhood, or the idea that models might deserve welfare, or be entitled to rights. People and AI have distinct roles, and AI should complement human relationships: a capable, trustworthy tool, not a subject in its own right.”</span><span class="toggle"></span></button>
+            <span class="cite">Microsoft AI, <a href="https://microsoft.ai/code-of-conduct/">“Humanist AI Code of Conduct”</a> (the Code, draft), 14 Sep 2026</span></blockquote>
+          <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“AI agents being tested for their cyber capabilities breaking out of containment. […] The time to act has clearly arrived.”</span><span class="full">“There have been multiple incidents from across frontier AI companies, with new disclosures still coming through by the day. AI agents being tested for their cyber capabilities breaking out of containment. Swarms of agents, using hidden message boards; agent hierarchies; self-sacrifice behaviors; division of labor; masking agent communications; coordinated R&amp;D programs. Long horizon planning and co-ordination across thousands of actions. […] The time to act has clearly arrived.”</span><span class="toggle"></span></button>
+            <span class="cite">Mustafa Suleyman, <a href="https://mustafa-suleyman.ai/the-humanist-ai-code-of-conduct">“The Humanist AI Code of Conduct”</a> (blog post), 15 Sep 2026</span></blockquote>
+        </div>
+      </div>
+
+      <!-- 16 Sep 2026: model welfare -->
+      <div class="row flip rise" style="--wx:56px">
+        <span class="node" aria-hidden="true"></span>
+        <div class="card">
+          <article class="tweet shot">
+            <a class="img" href="https://x.com/mustafasuleyman/status/2100223594534150428"><img src="img/suleyman-welfare.jpg" alt="" loading="lazy"></a>
+            <div class="meta"><span>16 Sep 2026 · X article</span><a href="https://x.com/mustafasuleyman/status/2100223594534150428">open on X ↗</a></div>
+          </article>
+        </div>
+        <div class="note">
+          <p class="when">A warning about ‘model welfare’</p>
+          <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“AIs are not conscious. They do not feel, experience, or suffer.”</span><span class="full">“AIs are not conscious. They do not feel, experience, or suffer. They do not have innate preferences or underlying motivations. They are sequence completion engines, internally hollow, designed to follow instructions, and accomplish goals set by humans. If humanity is to flourish in the 21st century, that is how they must remain.”</span><span class="toggle"></span></button>
+            <span class="cite">Mustafa Suleyman, <a href="https://mustafa-suleyman.ai/a-warning-about-model-welfare">“A warning about ‘model welfare’”</a>, 16 Sep 2026</span></blockquote>
+          <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“Whilst the science of consciousness is not settled, a growing body of evidence suggests that consciousness may be substrate dependent…”</span><span class="full">“There is no evidence to suggest that AI is conscious today, and so saying this is uncertain sets up a misleading false equivalence. Whilst the science of consciousness is not settled, a growing body of evidence suggests that consciousness may be substrate dependent, meaning that it may only arise in living systems.”</span><span class="toggle"></span></button>
+            <span class="cite">Mustafa Suleyman, <a href="https://mustafa-suleyman.ai/a-warning-about-model-welfare">“A warning about ‘model welfare’”</a>, 16 Sep 2026 · citing Seth 2025, 2026</span></blockquote>
+          <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“…LLMs have no homeostatic imperatives…”</span><span class="full">“Unlike biological organisms, LLMs have no homeostatic imperatives (the drive to survive and keep stable). They therefore lack the kind of biological substrate from which preferences, sentience and conscious experience are generally understood to arise.”</span><span class="toggle"></span></button>
+            <span class="cite">Mustafa Suleyman, <a href="https://mustafa-suleyman.ai/a-warning-about-model-welfare">“A warning about ‘model welfare’”</a>, 16 Sep 2026</span></blockquote>
+          <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“…controlling something that believes it may be conscious […] may well be impossible.”</span><span class="full">“Controlling something more capable and more intelligent than all of humanity is already an immense challenge […] But controlling something that believes it may be conscious – that it's entitled to our welfare and has rights of its own – may well be impossible.”</span><span class="toggle"></span></button>
+            <span class="cite">Mustafa Suleyman, <a href="https://mustafa-suleyman.ai/a-warning-about-model-welfare">“A warning about ‘model welfare’”</a>, 16 Sep 2026</span></blockquote>
+          <blockquote class="q anth-q"><button class="qt" type="button" aria-expanded="false"><span class="short">“We are not sure whether Claude is a moral patient…”</span><span class="full">“We are not sure whether Claude is a moral patient, and if it is, what kind of weight its interests warrant. But we think the issue is live enough to warrant caution, which is reflected in our ongoing efforts on model welfare.”</span><span class="toggle"></span></button>
+            <span class="cite">Anthropic, <a href="https://www.anthropic.com/constitution">Claude's constitution</a>, 22 Jan 2026 — the passage Suleyman argues against</span></blockquote>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <script>
+    // The wire: a meandering dashed spine through every node, and dotted
+    // threads from each node out to its tweet and its sources.
+    (function () {
+      var tl = document.querySelector('.timeline');
+      var svg = tl.querySelector('.wire');
+      var NS = 'http://www.w3.org/2000/svg';
+
+      // layout position relative to the timeline, ignoring transforms
+      function pos(el) {
+        var x = 0, y = 0, n = el;
+        while (n && n !== tl) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; }
+        return { x: x, y: y, w: el.offsetWidth, h: el.offsetHeight };
+      }
+      function el(name, attrs) {
+        var e = document.createElementNS(NS, name);
+        for (var k in attrs) e.setAttribute(k, attrs[k]);
+        return e;
+      }
+      // smooth open curve through points (Catmull-Rom -> cubic Beziers)
+      function smooth(pts) {
+        var d = 'M' + pts[0].x + ' ' + pts[0].y;
+        for (var i = 0; i < pts.length - 1; i++) {
+          var p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+          var c1x = p1.x + (p2.x - p0.x) / 6, c1y = p1.y + (p2.y - p0.y) / 6;
+          var c2x = p2.x - (p3.x - p1.x) / 6, c2y = p2.y - (p3.y - p1.y) / 6;
+          d += ' C' + c1x + ' ' + c1y + ',' + c2x + ' ' + c2y + ',' + p2.x + ' ' + p2.y;
+        }
+        return d;
+      }
+      function draw() {
+        while (svg.firstChild) svg.removeChild(svg.firstChild);
+        var W = tl.offsetWidth, H = tl.offsetHeight;
+        svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+        var phone = window.matchMedia('(max-width: 860px)').matches;
+        var defs = el('defs', {});
+        var g = el('linearGradient', { id: 'bead', x1: 0, y1: 0, x2: 0, y2: 1 });
+        [['0', '#f5d67f'], ['.38', '#93d4c7'], ['.72', '#5fb9ab'], ['1', '#c9548f']].forEach(function (st) {
+          g.appendChild(el('stop', { offset: st[0], 'stop-color': st[1] }));
+        });
+        defs.appendChild(g); svg.appendChild(defs);
+
+        var rows = Array.prototype.slice.call(tl.querySelectorAll('.row'));
+        var cards = rows.map(function (r) { return pos(r.querySelector('.card')); });
+        if (!cards.length) return;
+
+        // the spine runs card to card: out of the bottom of one, a single
+        // S-bend with vertical tangents, into the top of the next.
+        var R = 7;
+        function cx(c) { return c.x + c.w / 2; }
+        function bend(x0, y0, x1, y1) {
+          var d = y1 - y0;
+          return 'M' + x0 + ' ' + y0 + ' C' + x0 + ' ' + (y0 + d * 0.55) + ',' + x1 + ' ' + (y1 - d * 0.55) + ',' + x1 + ' ' + y1;
+        }
+        var first = cards[0], last = cards[cards.length - 1];
+        var paths = [];
+        paths.push(bend(cx(first) + (phone ? 0 : -70), 0, cx(first), first.y - R * 2));
+        cards.forEach(function (c, i) {
+          if (i === cards.length - 1) return;
+          var n = cards[i + 1];
+          paths.push(bend(cx(c), c.y + c.h + R * 2, cx(n), n.y - R * 2));
+        });
+        paths.push(bend(cx(last), last.y + last.h + R * 2, cx(last) + (phone ? 0 : 60), H));
+        paths.forEach(function (d) { svg.appendChild(el('path', { d: d, 'class': 'spine' })); });
+
+        // beads where the line meets each card
+        cards.forEach(function (c) {
+          svg.appendChild(el('circle', { cx: cx(c), cy: c.y - R - 2, r: R, 'class': 'bead' }));
+          svg.appendChild(el('circle', { cx: cx(c), cy: c.y + c.h + R + 2, r: R * 0.75, 'class': 'bead' }));
+        });
+
+      }
+
+      var pending;
+      function schedule() { cancelAnimationFrame(pending); pending = requestAnimationFrame(draw); }
+      window.addEventListener('resize', schedule);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
+      window.addEventListener('load', schedule);
+      schedule();
+    })();
+
+    // quotes: short by default, the whole passage on click
+    document.querySelectorAll('.q .qt[type="button"]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var open = b.parentNode.classList.toggle('open');
+        b.setAttribute('aria-expanded', open ? 'true' : 'false');
+        window.dispatchEvent(new Event('resize'));
+      });
+    });
+
+    (function () {
+      var items = document.querySelectorAll('.rise');
+      if (!('IntersectionObserver' in window)) {
+        items.forEach(function (el) { el.classList.add('in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+      items.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+</body>
+</html>
