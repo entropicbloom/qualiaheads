@@ -241,6 +241,15 @@
     .end { text-align: center; margin: 5rem 0 0; }
     .end .orb { width: 40px; height: 40px; border-radius: 50%; margin: 0 auto 1.2rem; background: linear-gradient(180deg, var(--sun), var(--aqua) 38%, var(--teal) 72%, var(--magenta)); box-shadow: 0 0 0 6px var(--mint), 0 0 0 7px var(--line); }
 
+    /* ---------- the two positions ---------- */
+    .versus {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(36px, 6vw, 96px);
+      margin: clamp(4rem, 10vh, 7rem) auto 0; max-width: 62rem;
+    }
+    .versus .col { max-width: 28rem; }
+    .versus .when { font-size: .82rem; }
+    @media (max-width: 860px) { .versus { grid-template-columns: 1fr; gap: 3rem 0; } }
+
     /* ---------- reveal ---------- */
     .rise { opacity: 0; transform: translateY(14px); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.8,.2,1); }
     .rise.in { opacity: 1; transform: none; }
@@ -364,6 +373,23 @@
         </div>
       </div>
 
+    </section>
+
+    <section class="versus rise" aria-label="The two positions">
+      <div class="col">
+        <p class="when">Biological naturalism</p>
+          <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“…consciousness is a state the brain can be in, in the way that liquidity and solidity are states that water can be in.”</span><span class="full">“I say consciousness is a feature of the brain. The property dualist says consciousness is a feature of the brain. This creates the illusion that we are saying the same thing. But we are not […]. The property dualist means that in addition to all the neurobiological features of the brain, there is an extra, distinct, non-physical feature of the brain, whereas I mean that consciousness is a state the brain can be in, in the way that liquidity and solidity are states that water can be in.”</span><span class="toggle"></span></button>
+            <span class="cite">John Searle, “Why I Am Not a Property Dualist”, Journal of Consciousness Studies, 2002 · <a href="https://en.wikipedia.org/wiki/Biological_naturalism">via Wikipedia</a></span></blockquote>
+          <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“…properties of life are necessary, though not necessarily sufficient, for consciousness.”</span><span class="full">“This is the idea — called biological naturalism by the philosopher John Searle — that properties of life are necessary, though not necessarily sufficient, for consciousness. I should say upfront that I don’t have a knock-down argument for this position, nor do I think any such argument yet exists. But it is worth taking seriously, if only for the simple reason mentioned earlier: every candidate for consciousness that most people currently agree on as actually being conscious is also alive.”</span><span class="toggle"></span></button>
+            <span class="cite">Anil Seth, <a href="https://www.noemamag.com/the-mythology-of-conscious-ai/">“The Mythology of Conscious AI”</a>, Noema, 14 Jan 2026</span></blockquote>
+      </div>
+      <div class="col">
+        <p class="when">Computational functionalism</p>
+          <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“…computational functionalism, the thesis that performing computations of the right kind is necessary and sufficient for consciousness…”</span><span class="full">“First, we adopt computational functionalism, the thesis that performing computations of the right kind is necessary and sufficient for consciousness, as a working hypothesis. This thesis is a mainstream—although disputed—position in philosophy of mind. We adopt this hypothesis for pragmatic reasons: unlike rival views, it entails that consciousness in AI is possible in principle and that studying the workings of AI systems is relevant to determining whether they are likely to be conscious.”</span><span class="toggle"></span></button>
+            <span class="cite">Butlin, Long et al., <a href="https://arxiv.org/abs/2308.08708">“Consciousness in Artificial Intelligence: Insights from the Science of Consciousness”</a>, 2023</span></blockquote>
+          <blockquote class="q static"><span class="qt"><span class="short">“…while it is somewhat unlikely that current large language models are conscious, we should take seriously the possibility that successors to large language models may be conscious in the not-too-distant future.”</span></span>
+            <span class="cite">David Chalmers, <a href="https://arxiv.org/abs/2303.07103">“Could a Large Language Model be Conscious?”</a>, 2023</span></blockquote>
+      </div>
     </section>
   </div>
 
