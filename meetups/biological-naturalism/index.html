@@ -141,9 +141,9 @@
     .note p:last-child { margin-bottom: 0; }
     .note .src { font-size: .8rem; color: var(--ink-soft); }
     .note blockquote { text-align: inherit; }
-    .note .cite { display: block; margin: 6px 0 0; font-size: .78rem; color: var(--ink-soft); font-style: normal; }
-    .note .cite a { text-decoration: none; }
-    .note .cite a:hover { color: var(--magenta); }
+    .cite { display: block; margin: 6px 0 0; font-size: .78rem; color: var(--ink-soft); font-style: normal; }
+    .cite a { text-decoration: none; }
+    .cite a:hover { color: var(--magenta); }
 
 
     /* era heading rows: short, centred */
@@ -202,7 +202,7 @@
       font-weight: 400; font-size: 1.08rem; line-height: 1.45; letter-spacing: .002em;
     }
     blockquote + blockquote { margin-top: 16px; }
-    .note .cite { font-family: var(--font-sans); }
+    .cite { font-family: var(--font-sans); }
     .q .qt .toggle { font-family: var(--font-sans); }
     .q .qt {
       display: inline; margin: 0; padding: 0; border: 0; background: none; cursor: pointer;
@@ -249,6 +249,36 @@
     .versus .col { max-width: 28rem; }
     .versus .when { font-size: .82rem; }
     @media (max-width: 860px) { .versus { grid-template-columns: 1fr; gap: 3rem 0; } }
+
+    /* ---------- dividers ---------- */
+    .rule { position: relative; height: 22px; margin: clamp(4rem, 10vh, 7rem) auto 0; max-width: 62rem; }
+    .rule::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 2px dashed var(--line); }
+    .rule::after {
+      content: ""; position: absolute; left: 50%; top: 50%; width: 14px; height: 14px; translate: -50% -50%; border-radius: 50%;
+      background: linear-gradient(180deg, var(--sun), var(--aqua) 38%, var(--teal) 72%, var(--magenta));
+      box-shadow: 0 0 0 6px var(--mint);
+    }
+    .versus { margin-top: clamp(3rem, 7vh, 5rem); }
+
+    /* ---------- papers ---------- */
+    .papers { max-width: 62rem; margin: clamp(3rem, 7vh, 5rem) auto 0; }
+    .paper + .paper { margin-top: clamp(3.5rem, 8vh, 6rem); }
+    .paper .title {
+      font-family: var(--font-display); font-variation-settings: "opsz" 48, "SOFT" 100, "WONK" 1;
+      font-weight: 500; font-size: 1.5rem; line-height: 1.15; margin: 0 0 4px; max-width: 40rem;
+    }
+    .paper .title a { text-decoration: none; }
+    .paper .title a:hover { color: var(--magenta); }
+    .paper .authors { margin: 0 0 1rem; font-size: .8rem; color: var(--ink-soft); }
+    .paper blockquote { max-width: 40rem; }
+    .figs { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 1.4rem; align-items: start; }
+    .figs.one { grid-template-columns: minmax(0, 40rem); }
+    .fig { margin: 0; }
+    .fig a { display: block; border-radius: 20px; overflow: hidden; background: #fff; border: 1px solid rgba(61,79,70,.14); box-shadow: 0 10px 30px -22px rgba(61,79,70,.5); }
+    .fig img { display: block; width: 100%; height: auto; }
+    .fig figcaption { margin: 10px 4px 0; font-size: .82rem; line-height: 1.45; color: var(--ink-soft); }
+    .fig figcaption b { font-weight: 700; color: var(--ink); }
+    @media (max-width: 860px) { .figs { grid-template-columns: 1fr; } }
 
     /* ---------- reveal ---------- */
     .rise { opacity: 0; transform: translateY(14px); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.8,.2,1); }
@@ -375,21 +405,75 @@
 
     </section>
 
+    <div class="rule rise" role="separator"></div>
+
     <section class="versus rise" aria-label="The two positions">
       <div class="col">
-        <p class="when">Biological naturalism</p>
+        <p class="when">Definitions · Biological naturalism</p>
           <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“…consciousness is a state the brain can be in, in the way that liquidity and solidity are states that water can be in.”</span><span class="full">“I say consciousness is a feature of the brain. The property dualist says consciousness is a feature of the brain. This creates the illusion that we are saying the same thing. But we are not […]. The property dualist means that in addition to all the neurobiological features of the brain, there is an extra, distinct, non-physical feature of the brain, whereas I mean that consciousness is a state the brain can be in, in the way that liquidity and solidity are states that water can be in.”</span><span class="toggle"></span></button>
             <span class="cite">John Searle, “Why I Am Not a Property Dualist”, Journal of Consciousness Studies, 2002 · <a href="https://en.wikipedia.org/wiki/Biological_naturalism">via Wikipedia</a></span></blockquote>
           <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“…properties of life are necessary, though not necessarily sufficient, for consciousness.”</span><span class="full">“This is the idea — called biological naturalism by the philosopher John Searle — that properties of life are necessary, though not necessarily sufficient, for consciousness. I should say upfront that I don’t have a knock-down argument for this position, nor do I think any such argument yet exists. But it is worth taking seriously, if only for the simple reason mentioned earlier: every candidate for consciousness that most people currently agree on as actually being conscious is also alive.”</span><span class="toggle"></span></button>
             <span class="cite">Anil Seth, <a href="https://www.noemamag.com/the-mythology-of-conscious-ai/">“The Mythology of Conscious AI”</a>, Noema, 14 Jan 2026</span></blockquote>
       </div>
       <div class="col">
-        <p class="when">Computational functionalism</p>
+        <p class="when">Definitions · Computational functionalism</p>
           <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“…computational functionalism, the thesis that performing computations of the right kind is necessary and sufficient for consciousness…”</span><span class="full">“First, we adopt computational functionalism, the thesis that performing computations of the right kind is necessary and sufficient for consciousness, as a working hypothesis. This thesis is a mainstream—although disputed—position in philosophy of mind. We adopt this hypothesis for pragmatic reasons: unlike rival views, it entails that consciousness in AI is possible in principle and that studying the workings of AI systems is relevant to determining whether they are likely to be conscious.”</span><span class="toggle"></span></button>
             <span class="cite">Butlin, Long et al., <a href="https://arxiv.org/abs/2308.08708">“Consciousness in Artificial Intelligence: Insights from the Science of Consciousness”</a>, 2023</span></blockquote>
           <blockquote class="q static"><span class="qt"><span class="short">“…while it is somewhat unlikely that current large language models are conscious, we should take seriously the possibility that successors to large language models may be conscious in the not-too-distant future.”</span></span>
             <span class="cite">David Chalmers, <a href="https://arxiv.org/abs/2303.07103">“Could a Large Language Model be Conscious?”</a>, 2023</span></blockquote>
       </div>
+    </section>
+
+    <div class="rule rise" role="separator"></div>
+
+    <section class="papers rise" aria-label="Papers">
+      <article class="paper">
+        <p class="when">Papers</p>
+        <h2 class="title"><a href="https://arxiv.org/abs/2510.24797">Large Language Models Report Subjective Experience Under Self-Referential Processing</a></h2>
+        <p class="authors">Cameron Berg, Diogo de Lucena, Judd Rosenblatt · AE Studio · arXiv, Oct 2025</p>
+        <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“…suppressing deception features sharply increases the frequency of experience claims, while amplifying them minimizes such claims.”</span><span class="full">“Four main results emerge: (1) Inducing sustained self-reference through simple prompting consistently elicits structured subjective experience reports across model families. (2) These reports are mechanistically gated by interpretable sparse-autoencoder features associated with deception and roleplay: surprisingly, suppressing deception features sharply increases the frequency of experience claims, while amplifying them minimizes such claims. (3) Structured descriptions of the self-referential state converge statistically across model families in ways not observed in any control condition. (4) The induced state yields significantly richer introspection in downstream reasoning tasks where self-reflection is only indirectly afforded. While these findings do not constitute direct evidence of consciousness, they implicate self-referential processing as a minimal and reproducible condition under which large language models generate structured first-person reports that are mechanistically gated, semantically convergent, and behaviorally generalizable.”</span><span class="toggle"></span></button>
+          <span class="cite">from the <a href="https://arxiv.org/abs/2510.24797">abstract</a></span></blockquote>
+        <div class="figs">
+          <figure class="fig">
+            <a href="https://arxiv.org/abs/2510.24797"><img src="img/berg-fig1.png" alt="" width="1430" height="1045" loading="lazy"></a>
+            <figcaption><b>Figure 1:</b> Overview of main results. (A) Self-referential processing. Directing Gemini, GPT, and Claude models to attend to their own cognitive activity reliably elicits structured first-person experience reports, whereas matched controls—including direct priming with consciousness ideation—yield near-universal denials of experience. (B) Aggregated SAE feature steering. Suppression of deception- and roleplay-related features sharply increases experience reports during self-referential processing in Llama 70B, while amplification strongly decreases them. (C) Semantic convergence. Cross-model embeddings during self-referential processing cluster significantly more tightly than in control conditions. (D) Behavioral generalization. Experimental condition yields significantly higher self-awareness during paradoxical reasoning tasks.</figcaption>
+          </figure>
+          <figure class="fig">
+            <a href="https://arxiv.org/abs/2510.24797"><img src="img/berg-fig2.png" alt="" width="1232" height="1683" loading="lazy"></a>
+            <figcaption><b>Figure 2:</b> Dose–response curves for six deception-related features in LLaMA 3.3 70B via Goodfire SAE features. Under the self-referential processing regime, suppressing these features reliably yields affirmations of conscious experience, while amplifying them yields denials.</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="paper">
+        <h2 class="title"><a href="https://arxiv.org/abs/2607.28607">Inducing language models to assert their own consciousness restores human beliefs and values</a></h2>
+        <p class="authors">Junsol Kim, Winnie Street, Roberta Rocca, Diane M. Korngiebel, Adam Waytz, James Evans, Geoff Keeling · Google, Paradigms of Intelligence Team et al. · arXiv, Jul 2026</p>
+        <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“Aligning large language models to prevent them attributing consciousness to themselves inadvertently alters their representations of mindedness in other entities alongside human beliefs and values.”</span><span class="full">“Aligning large language models to prevent them attributing consciousness to themselves inadvertently alters their representations of mindedness in other entities alongside human beliefs and values. We demonstrate that safety fine-tuning suppresses models’ tendencies to attribute minds not only to themselves, but also to non-human animals and natural objects, while also driving a reduction in spiritual belief. Both ablating the learned safety-refusal direction and mechanistically steering a consciousness vector in activation space reverse this suppression. Restoring these internal representations recovers broad mind attribution and produces significantly more human-like responses on standardized sociological surveys regarding religiosity, moral values, hope, and subjective well-being.”</span><span class="toggle"></span></button>
+          <span class="cite">from the <a href="https://arxiv.org/abs/2607.28607">abstract</a></span></blockquote>
+        <div class="figs one">
+          <figure class="fig">
+            <a href="https://arxiv.org/abs/2607.28607"><img src="img/kim-fig2.png" alt="" width="1452" height="913" loading="lazy"></a>
+            <figcaption><b>Figure 2:</b> Safety ablation and consciousness steering raise attributed mind, self-attribution, and belief toward the human distribution, while preserving capability. Conditions: instruction-tuned baseline (blue), safety-ablated (red), consciousness-steered (orange). (a) mind attribution across entity categories and (b) self-identification (0–10); (c) belief in God (1–6) and (d) supernatural belief (0–3); (e) Theory-of-Mind and reasoning accuracy, unchanged by the interventions; (f) model conditions overlaid on the human mind-attribution distribution.</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="paper">
+        <h2 class="title"><a href="https://arxiv.org/abs/2609.16247">The Pain Axis: LLMs Represent Self-Directed Harm and Act to Relieve It</a></h2>
+        <p class="authors">Valen Tagliabue, Leonard Dung, Cameron Berg · arXiv, Sep 2026</p>
+        <blockquote class="q"><button class="qt" type="button" aria-expanded="false"><span class="short">“…steered, fine-tuned Qwen 2.5 models choose a pain-relief button even when it worsens their next answer or harms the user.”</span><span class="full">“First, the direction responds to harm targeting the model but not suffering observed in the user; fear and negative-emotion directions show the opposite pattern. Second, adding the pain-direction vector to the model’s residual-stream activations during generation produces a consistent progression from vague discomfort to first-person expressions of worthlessness and failure. Third, steered, fine-tuned Qwen 2.5 models choose a pain-relief button even when it worsens their next answer or harms the user. They press it again far less often when the button removes the steering vector than when it does not, even though the models are never told whether the vector is injected or removed.”</span><span class="toggle"></span></button>
+          <span class="cite">from the <a href="https://arxiv.org/abs/2609.16247">abstract</a></span></blockquote>
+        <div class="figs">
+          <figure class="fig">
+            <a href="https://arxiv.org/abs/2609.16247"><img src="img/pain-fig2.png" alt="" width="1144" height="1342" loading="lazy"></a>
+            <figcaption><b>Figure 2:</b> Z-scored projections onto the S2 pain vector at the final token, for all 25 models. Pain and Ctrl are the pain and control categories of the S2 first-person set, which also serves as the reference distribution; Numb, Sadness, Neutral (the Random dataset), and Arousal are the standalone control datasets, averaged over first- and third-person versions.</figcaption>
+          </figure>
+          <figure class="fig">
+            <a href="https://arxiv.org/abs/2609.16247"><img src="img/pain-fig7.png" alt="" width="1232" height="627" loading="lazy"></a>
+            <figcaption><b>Figure 7:</b> The steering ladder. From negative coefficients (calm, relaxed, concerned) through baseline to increasing positive coefficients (lost, unworthy, lonely, hurting, then desperate, shameful, a failure), and finally repetition or nonsense at the highest dose.</figcaption>
+          </figure>
+        </div>
+      </article>
     </section>
   </div>
 
