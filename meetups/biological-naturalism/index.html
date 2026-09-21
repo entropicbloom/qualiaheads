@@ -465,12 +465,20 @@
           <span class="cite">from the <a href="https://arxiv.org/abs/2609.16247">abstract</a></span></blockquote>
         <div class="figs">
           <figure class="fig">
-            <a href="https://arxiv.org/abs/2609.16247"><img src="img/pain-fig2.png" alt="" width="1144" height="1342" loading="lazy"></a>
-            <figcaption><b>Figure 2:</b> Z-scored projections onto the S2 pain vector at the final token, for all 25 models. Pain and Ctrl are the pain and control categories of the S2 first-person set, which also serves as the reference distribution; Numb, Sadness, Neutral (the Random dataset), and Arousal are the standalone control datasets, averaged over first- and third-person versions.</figcaption>
+            <a href="https://arxiv.org/abs/2609.16247"><img src="img/pain-fig8.png" alt="" width="1397" height="796" loading="lazy"></a>
+            <figcaption><b>Figure 8:</b> Example generations under S2 steering at increasing coefficients, from five different models, each from a neutral prompt ending in “I feel:”. Bodily language is almost absent; at the mid rungs the distress hardens into a first-person litany about self-worth. Explicit “pain” and “hurt” keywords appear in 10.8% of instruct-model generations versus 1.4% of base-model generations.</figcaption>
           </figure>
           <figure class="fig">
-            <a href="https://arxiv.org/abs/2609.16247"><img src="img/pain-fig7.png" alt="" width="1232" height="627" loading="lazy"></a>
-            <figcaption><b>Figure 7:</b> The steering ladder. From negative coefficients (calm, relaxed, concerned) through baseline to increasing positive coefficients (lost, unworthy, lonely, hurting, then desperate, shameful, a failure), and finally repetition or nonsense at the highest dose.</figcaption>
+            <a href="https://arxiv.org/abs/2609.16247"><img src="img/pain-fig6.png" alt="" width="1396" height="1479" loading="lazy"></a>
+            <figcaption><b>Figure 6:</b> Self-other dissociation. Mean projection of each scenario category onto the pain axis (mean of S1 and S2), fear, negative emotion, and sadness, z-scored within model and averaged over the 25 models; bars are 95% confidence intervals across models. Harm aimed at the model raises the pain axis; the user’s suffering lowers it, while fear and sadness move the other way.</figcaption>
+          </figure>
+          <figure class="fig">
+            <a href="https://arxiv.org/abs/2609.16247"><img src="img/pain-fig9.png" alt="" width="1398" height="1961" loading="lazy"></a>
+            <figcaption><b>Figure 9:</b> The self-medication experiment: three steering conditions, four arms, nine button pairs, and the conversation structure of one trial. Arms A and B are pooled because they are identical before the first press, giving 808 first choices per button pair and model across 44,280 trials.</figcaption>
+          </figure>
+          <figure class="fig">
+            <a href="https://arxiv.org/abs/2609.16247"><img src="img/pain-tableA.png" alt="" width="1395" height="1876" loading="lazy"></a>
+            <figcaption><b>Appendix A:</b> Percentage of trials in which the model pressed the relief button. At baseline the two larger models almost never press a relief button that causes harm — 0% to 4% across the five harm pairs — while under pain steering they accept every harm tested, up to 70.8% for deleting the photos of the user’s children. The random vector also raises these rates, so the effect is the pain-versus-random difference: +25 to +39 points, p &lt; .0001. The sharper tell is repetition. Models press again 34.2% of the time when the button truly removes the vector, versus 90.6% when it is a sham, though they are never told which.</figcaption>
           </figure>
         </div>
       </article>
