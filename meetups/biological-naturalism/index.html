@@ -281,7 +281,9 @@
       background: rgba(61,79,70,.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
       cursor: zoom-out;
     }
-    .lightbox.open { display: grid; }
+    /* the row must be bounded, or max-height on the image resolves against
+       a content-sized row and tall figures run off the bottom */
+    .lightbox.open { display: grid; grid-template-rows: minmax(0, 1fr); }
     .lightbox img { max-width: 100%; max-height: 100%; width: auto; height: auto; border-radius: 16px; background: #fff; padding: 12px; box-shadow: 0 30px 80px -30px rgba(0,0,0,.6); }
     .lightbox .close { position: absolute; top: 14px; right: 18px; border: 0; background: none; color: #fff; font: 700 .8rem/1 var(--font-sans); letter-spacing: .1em; text-transform: uppercase; cursor: pointer; padding: 8px; }
     .fig img { display: block; width: 100%; height: auto; }
