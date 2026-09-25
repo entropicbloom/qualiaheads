@@ -177,8 +177,8 @@
       color: var(--ink);
     }
 
+    .links { align-self: flex-start; display: flex; gap: 22px; margin: 14px 0 0 calc(.1em + 20px); }
     .sessions {
-      align-self: flex-start; margin: 14px 0 0 calc(.1em + 20px);
       font-size: .76rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
       color: var(--ink-soft); text-decoration: none;
       border-bottom: 1.5px dotted var(--ink-soft);
@@ -259,7 +259,10 @@
       <span class="label">Next meet-up · 6 Oct, 20:00 Swiss time</span>
       <strong>Biological Naturalism &amp; Artificial Consciousness</strong>
     </a>
-    <a class="sessions rise" href="meetups/">All sessions</a>
+    <nav class="links rise">
+      <a class="sessions" href="meetups/">All sessions</a>
+      <a class="sessions" href="https://qualiaheads.github.io/blog/">Blog</a>
+    </nav>
   </main>
 
   <div class="grain" aria-hidden="true"></div>
